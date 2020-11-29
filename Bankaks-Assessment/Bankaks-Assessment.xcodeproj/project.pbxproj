@@ -14,6 +14,7 @@
 		79A6924125741FAB002D5268 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79A6923F25741FAB002D5268 /* LaunchScreen.storyboard */; };
 		79A6924C25741FAB002D5268 /* Bankaks_AssessmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6924B25741FAB002D5268 /* Bankaks_AssessmentTests.swift */; };
 		79A6925725741FAB002D5268 /* Bankaks_AssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6925625741FAB002D5268 /* Bankaks_AssessmentUITests.swift */; };
+		79A6926E25743340002D5268 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6926D25743340002D5268 /* Form.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		79A6925225741FAB002D5268 /* Bankaks-AssessmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bankaks-AssessmentUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A6925625741FAB002D5268 /* Bankaks_AssessmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bankaks_AssessmentUITests.swift; sourceTree = "<group>"; };
 		79A6925825741FAB002D5268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79A6926D25743340002D5268 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				79A6923D25741FAB002D5268 /* Assets.xcassets */,
 				79A6923F25741FAB002D5268 /* LaunchScreen.storyboard */,
 				79A6924225741FAB002D5268 /* Info.plist */,
+				79A6926D25743340002D5268 /* Form.swift */,
 			);
 			path = "Bankaks-Assessment";
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79A6923925741FA8002D5268 /* ViewController.swift in Sources */,
+				79A6926E25743340002D5268 /* Form.swift in Sources */,
 				79A6923525741FA8002D5268 /* AppDelegate.swift in Sources */,
 				79A6923725741FA8002D5268 /* SceneDelegate.swift in Sources */,
 			);
