@@ -22,6 +22,7 @@
 		79A692A225755D7F002D5268 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692A125755D7F002D5268 /* MainCoordinator.swift */; };
 		79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692AF25756CDA002D5268 /* NetworkManager.swift */; };
 		79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692B725756D8E002D5268 /* ViewCodable.swift */; };
+		79A692C0257592A2002D5268 /* ServiceOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692BF257592A1002D5268 /* ServiceOptionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		79A692A125755D7F002D5268 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		79A692AF25756CDA002D5268 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		79A692B725756D8E002D5268 /* ViewCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodable.swift; sourceTree = "<group>"; };
+		79A692BF257592A1002D5268 /* ServiceOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOptionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				79A6929225755D00002D5268 /* ServiceOptionViewController.swift */,
+				79A692BF257592A1002D5268 /* ServiceOptionView.swift */,
 			);
 			path = ServiceOption;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */,
 				79A6926E25743340002D5268 /* Form.swift in Sources */,
 				79A6929325755D00002D5268 /* ServiceOptionViewController.swift in Sources */,
+				79A692C0257592A2002D5268 /* ServiceOptionView.swift in Sources */,
 				79A6929825755D1C002D5268 /* ServiceOptionViewModel.swift in Sources */,
 				79A6923525741FA8002D5268 /* AppDelegate.swift in Sources */,
 				79A6923725741FA8002D5268 /* SceneDelegate.swift in Sources */,

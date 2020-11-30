@@ -13,24 +13,29 @@ protocol ServiceOptionViewControllerCoodinator: class{
 
 class ServiceOptionViewController: UIViewController {
     
+    var serviceOptionView: ServiceOptionView!{
+        willSet{ view = newValue }
+    }
     var serviceOptionViewModel: ServiceOptionViewModel!
-    weak var coordinator: ServiceOptionViewControllerCoodinator?
+    var coordinator: ServiceOptionViewControllerCoodinator?
+    
+    init(view: ServiceOptionView, viewModel: ServiceOptionViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        serviceOptionView = view
+        serviceOptionViewModel = viewModel
+        serviceOptionView.proccedButton.addTarget(self, action: #selector(goToFormView), for: .touchUpInside)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @objc func goToFormView(){
+        coordinator?.navigateToFormViewController()
     }
-    */
 
 }
