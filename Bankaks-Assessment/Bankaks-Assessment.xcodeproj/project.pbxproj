@@ -9,12 +9,19 @@
 /* Begin PBXBuildFile section */
 		79A6923525741FA8002D5268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6923425741FA8002D5268 /* AppDelegate.swift */; };
 		79A6923725741FA8002D5268 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6923625741FA8002D5268 /* SceneDelegate.swift */; };
-		79A6923925741FA8002D5268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6923825741FA8002D5268 /* ViewController.swift */; };
 		79A6923E25741FAB002D5268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79A6923D25741FAB002D5268 /* Assets.xcassets */; };
 		79A6924125741FAB002D5268 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79A6923F25741FAB002D5268 /* LaunchScreen.storyboard */; };
 		79A6924C25741FAB002D5268 /* Bankaks_AssessmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6924B25741FAB002D5268 /* Bankaks_AssessmentTests.swift */; };
 		79A6925725741FAB002D5268 /* Bankaks_AssessmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6925625741FAB002D5268 /* Bankaks_AssessmentUITests.swift */; };
 		79A6926E25743340002D5268 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6926D25743340002D5268 /* Form.swift */; };
+		79A6928625755CC5002D5268 /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6928525755CC5002D5268 /* FormViewModel.swift */; };
+		79A6928E25755CEB002D5268 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6928D25755CEB002D5268 /* FormViewController.swift */; };
+		79A6929325755D00002D5268 /* ServiceOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6929225755D00002D5268 /* ServiceOptionViewController.swift */; };
+		79A6929825755D1C002D5268 /* ServiceOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */; };
+		79A6929D25755D75002D5268 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6929C25755D74002D5268 /* Coordinator.swift */; };
+		79A692A225755D7F002D5268 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692A125755D7F002D5268 /* MainCoordinator.swift */; };
+		79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692AF25756CDA002D5268 /* NetworkManager.swift */; };
+		79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692B725756D8E002D5268 /* ViewCodable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +45,6 @@
 		79A6923125741FA8002D5268 /* Bankaks-Assessment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bankaks-Assessment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		79A6923425741FA8002D5268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79A6923625741FA8002D5268 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		79A6923825741FA8002D5268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		79A6923D25741FAB002D5268 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79A6924025741FAB002D5268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79A6924225741FAB002D5268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +55,14 @@
 		79A6925625741FAB002D5268 /* Bankaks_AssessmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bankaks_AssessmentUITests.swift; sourceTree = "<group>"; };
 		79A6925825741FAB002D5268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79A6926D25743340002D5268 /* Form.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
+		79A6928525755CC5002D5268 /* FormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
+		79A6928D25755CEB002D5268 /* FormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		79A6929225755D00002D5268 /* ServiceOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOptionViewController.swift; sourceTree = "<group>"; };
+		79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOptionViewModel.swift; sourceTree = "<group>"; };
+		79A6929C25755D74002D5268 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		79A692A125755D7F002D5268 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		79A692AF25756CDA002D5268 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		79A692B725756D8E002D5268 /* ViewCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +113,15 @@
 		79A6923325741FA8002D5268 /* Bankaks-Assessment */ = {
 			isa = PBXGroup;
 			children = (
-				79A6923425741FA8002D5268 /* AppDelegate.swift */,
-				79A6923625741FA8002D5268 /* SceneDelegate.swift */,
-				79A6923825741FA8002D5268 /* ViewController.swift */,
+				79A6927D25755216002D5268 /* Network */,
+				79A6927C25755046002D5268 /* Application */,
+				79A6927B2575501F002D5268 /* Utils */,
+				79A6927A25755010002D5268 /* View Model */,
+				79A6927925755008002D5268 /* Model */,
+				79A6927825754FFA002D5268 /* View */,
 				79A6923D25741FAB002D5268 /* Assets.xcassets */,
 				79A6923F25741FAB002D5268 /* LaunchScreen.storyboard */,
 				79A6924225741FAB002D5268 /* Info.plist */,
-				79A6926D25743340002D5268 /* Form.swift */,
 			);
 			path = "Bankaks-Assessment";
 			sourceTree = "<group>";
@@ -126,6 +142,91 @@
 				79A6925825741FAB002D5268 /* Info.plist */,
 			);
 			path = "Bankaks-AssessmentUITests";
+			sourceTree = "<group>";
+		};
+		79A6927825754FFA002D5268 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79A6928425755AB0002D5268 /* Form */,
+				79A6928325755AA3002D5268 /* ServiceOption */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		79A6927925755008002D5268 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				79A6926D25743340002D5268 /* Form.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		79A6927A25755010002D5268 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				79A6928525755CC5002D5268 /* FormViewModel.swift */,
+				79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		79A6927B2575501F002D5268 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				79A692822575532E002D5268 /* Error Handling */,
+				79A6928125755322002D5268 /* Coordinator */,
+				79A692B725756D8E002D5268 /* ViewCodable.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		79A6927C25755046002D5268 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				79A6923625741FA8002D5268 /* SceneDelegate.swift */,
+				79A6923425741FA8002D5268 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		79A6927D25755216002D5268 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				79A692AF25756CDA002D5268 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		79A6928125755322002D5268 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				79A6929C25755D74002D5268 /* Coordinator.swift */,
+				79A692A125755D7F002D5268 /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		79A692822575532E002D5268 /* Error Handling */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Error Handling";
+			sourceTree = "<group>";
+		};
+		79A6928325755AA3002D5268 /* ServiceOption */ = {
+			isa = PBXGroup;
+			children = (
+				79A6929225755D00002D5268 /* ServiceOptionViewController.swift */,
+			);
+			path = ServiceOption;
+			sourceTree = "<group>";
+		};
+		79A6928425755AB0002D5268 /* Form */ = {
+			isa = PBXGroup;
+			children = (
+				79A6928D25755CEB002D5268 /* FormViewController.swift */,
+			);
+			path = Form;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,10 +358,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79A6923925741FA8002D5268 /* ViewController.swift in Sources */,
+				79A6928E25755CEB002D5268 /* FormViewController.swift in Sources */,
+				79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */,
+				79A6928625755CC5002D5268 /* FormViewModel.swift in Sources */,
+				79A692A225755D7F002D5268 /* MainCoordinator.swift in Sources */,
+				79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */,
 				79A6926E25743340002D5268 /* Form.swift in Sources */,
+				79A6929325755D00002D5268 /* ServiceOptionViewController.swift in Sources */,
+				79A6929825755D1C002D5268 /* ServiceOptionViewModel.swift in Sources */,
 				79A6923525741FA8002D5268 /* AppDelegate.swift in Sources */,
 				79A6923725741FA8002D5268 /* SceneDelegate.swift in Sources */,
+				79A6929D25755D75002D5268 /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
