@@ -26,12 +26,12 @@ final class ServiceOptionView: UIView{
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
         textField.autocapitalizationType = .none
+        textField.inputView = optionPickerView
         return textField
     }()
     
     lazy var optionPickerView: UIPickerView = { [weak self] in
         let pickerView = UIPickerView()
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.delegate = self
         pickerView.dataSource = self
         return pickerView
@@ -59,11 +59,12 @@ final class ServiceOptionView: UIView{
 }
 
 extension ServiceOptionView: UITextFieldDelegate{
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == optionTextField{
-            optionPickerView.isHidden = false
-            textField.endEditing(true)
-        }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
 }
 
@@ -80,13 +81,12 @@ extension ServiceOptionView: UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        self.endEditing(true)
         return "Option " + options[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         optionTextField.text = options[row]
-        optionPickerView.isHidden = true
+        optionTextField.endEditing(true)
     }
     
 }
@@ -94,7 +94,6 @@ extension ServiceOptionView: UIPickerViewDataSource{
 extension ServiceOptionView: ViewCodable{
     func setupHierarchyViews() {
         addSubview(optionTextField)
-        addSubview(optionPickerView)
         addSubview(proccedButton)
     }
     
@@ -104,11 +103,6 @@ extension ServiceOptionView: ViewCodable{
             optionTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
             optionTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             optionTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            
-            optionPickerView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            optionPickerView.topAnchor.constraint(equalTo: optionTextField.bottomAnchor),
-            optionPickerView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            optionPickerView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             
             proccedButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             proccedButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16),
