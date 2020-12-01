@@ -9,6 +9,9 @@ import UIKit
 
 class FormViewController: UIViewController {
     
+    var formView: FormView!{
+        willSet { view = newValue }
+    }
     var formViewModel: FormViewModel!
 
     override func viewDidLoad() {
