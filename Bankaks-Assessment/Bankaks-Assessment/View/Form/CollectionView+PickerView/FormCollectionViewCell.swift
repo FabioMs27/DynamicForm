@@ -15,6 +15,9 @@ enum InputState {
 
 class FormCollectionViewCell: UICollectionViewCell {
     
+    var isMandatory: Bool = false
+    var regex: String = ""
+    
     lazy var inputTextField: UITextField = { [weak self] in
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -25,8 +28,8 @@ class FormCollectionViewCell: UICollectionViewCell {
         return textField
     }()
     
-    lazy var optionPickerView: UIPickerView = { [weak self] in
-        let pickerView = UIPickerView()
+    lazy var optionPickerView: FormPickerView = { [weak self] in
+        let pickerView = FormPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
         return pickerView
@@ -77,15 +80,20 @@ extension FormCollectionViewCell: UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 0
+        guard let customPickerView = pickerView as? FormPickerView else { return 0 }
+        return customPickerView.values.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return ""
+        guard let customPickerView = pickerView as? FormPickerView else { return "" }
+        return customPickerView.values[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+        guard let customPickerView = pickerView as? FormPickerView else { return }
+        let text = customPickerView.values[row].name
+        inputTextField.text = text
+        inputTextField.endEditing(true)
     }
     
 }
