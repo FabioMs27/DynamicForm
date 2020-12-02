@@ -37,6 +37,15 @@ final class ServiceOptionView: UIView{
         return pickerView
     }()
     
+    lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .clear
+        return label
+    }()
+    
     lazy var proccedButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -95,6 +104,7 @@ extension ServiceOptionView: ViewCodable{
     func setupHierarchyViews() {
         addSubview(optionTextField)
         addSubview(proccedButton)
+        addSubview(errorLabel)
     }
     
     func setupConstraints() {
@@ -103,6 +113,11 @@ extension ServiceOptionView: ViewCodable{
             optionTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
             optionTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             optionTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            
+            errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            errorLabel.bottomAnchor.constraint(equalTo: proccedButton.topAnchor, constant: -16),
+            errorLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             
             proccedButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             proccedButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16),

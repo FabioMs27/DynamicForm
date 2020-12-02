@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ServiceOptionViewControllerCoodinator: class{
-    func navigateToFormViewController()
+    func navigateToFormViewController(option: Int)
 }
 
 class ServiceOptionViewController: UIViewController {
@@ -35,7 +35,15 @@ class ServiceOptionViewController: UIViewController {
     }
     
     @objc func goToFormView(){
-        coordinator?.navigateToFormViewController()
+        do{
+            let value = serviceOptionView.optionTextField.text
+            let option = try serviceOptionViewModel.inputValidator(value: value)
+            coordinator?.navigateToFormViewController(option: option)
+            serviceOptionView.errorLabel.textColor = .clear
+        }catch{
+            serviceOptionView.errorLabel.text = error.localizedDescription
+            serviceOptionView.errorLabel.textColor = .systemRed
+        }
     }
 
 }

@@ -22,18 +22,15 @@ class MainCoordinator: Coordinator {
         viewController.coordinator = self
         viewController.serviceOptionView = view
         navigationController.pushViewController(viewController, animated: false)
-        navigateToFormViewController()
     }
     
 }
 
 extension MainCoordinator: ServiceOptionViewControllerCoodinator{
-    func navigateToFormViewController() {
+    func navigateToFormViewController(option: Int) {
         let view = FormView()
-        let viewModel = FormViewModel()
-        let viewController = FormViewController()
-        viewController.formView = view
-        viewController.formViewModel = viewModel
+        let viewModel = FormViewModel(option: option)
+        let viewController = FormViewController(formView: view, viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
