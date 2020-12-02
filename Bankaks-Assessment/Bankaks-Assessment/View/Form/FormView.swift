@@ -9,18 +9,40 @@ import UIKit
 
 class FormView: UIView{
     
-    let values = [
-        "Fabio",
-        "Ivanka",
-        "David"
-    ]
+    var screen: CGSize{
+        UIScreen.main.bounds.size
+    }
     
-    lazy var contentTableView: UITableView = { [weak self] in
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        return tableView
+    lazy var collectionView: FormCollectionView = {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 100, height: 170)
+        layout.headerReferenceSize = CGSize(width: screen.width, height: 80)
+        let collectionView = FormCollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(FormCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(FormCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .blue
+        return collectionView
+    }()
+    
+    lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .clear
+        return label
+    }()
+    
+    lazy var submitButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Submit", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 5
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -32,31 +54,29 @@ class FormView: UIView{
     }
 }
 
-extension FormView: UITableViewDelegate{}
-
-extension FormView: UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return values.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = values[indexPath.row]
-        return cell
-    }
-}
-
 extension FormView: ViewCodable{
     func setupHierarchyViews() {
-        addSubview(contentTableView)
+        addSubview(collectionView)
+        addSubview(errorLabel)
+        addSubview(submitButton)
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            contentTableView.topAnchor.constraint(equalTo: topAnchor),
-            contentTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            contentTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentTableView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            collectionView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: errorLabel.topAnchor, constant: -16),
+            collectionView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            
+            errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            errorLabel.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16),
+            errorLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            
+            submitButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            submitButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16),
+            submitButton.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
+            submitButton.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20)
         ])
     }
     
