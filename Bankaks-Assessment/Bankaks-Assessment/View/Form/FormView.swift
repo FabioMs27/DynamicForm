@@ -7,22 +7,31 @@
 
 import UIKit
 
-class FormView: UIView{
+class FormView: UIView {
     
-    var screen: CGSize{
+    var result: Results? {
+        willSet{ collectionView.reloadData() }
+    }
+    
+    var fields: [Field] {
+        result?.fields ?? []
+    }
+    
+    var screen: CGSize {
         UIScreen.main.bounds.size
     }
     
-    lazy var collectionView: FormCollectionView = {
+    lazy var collectionView: FormCollectionView = { [weak self] in
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 100, height: 170)
-        layout.headerReferenceSize = CGSize(width: screen.width, height: 80)
+        layout.itemSize = CGSize(width: screen.width, height: screen.height * 0.1)
+        layout.headerReferenceSize = CGSize(width: screen.width, height: 120)
         let collectionView = FormCollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.register(FormCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.register(FormCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .blue
         return collectionView
     }()
     

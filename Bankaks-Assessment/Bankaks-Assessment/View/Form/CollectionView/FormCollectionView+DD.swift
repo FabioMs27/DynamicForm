@@ -7,24 +7,26 @@
 
 import UIKit
 
-extension FormCollectionView: UICollectionViewDelegate{}
+extension FormView: UICollectionViewDelegate{}
 
-extension FormCollectionView: UICollectionViewDataSource{
+extension FormView: UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? FormCollectionViewCell ?? FormCollectionViewCell()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = UICollectionReusableView()
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as? FormCollectionReusableView ?? FormCollectionReusableView()
+        
+        header.headerLabel.text = "Deu bom demais"
         return header
     }
 }
