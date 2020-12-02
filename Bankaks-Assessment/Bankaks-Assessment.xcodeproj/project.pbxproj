@@ -30,7 +30,7 @@
 		79A6933425772A58002D5268 /* FormCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6933325772A58002D5268 /* FormCollectionView.swift */; };
 		79A6933C25772A73002D5268 /* FormCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */; };
 		79A6934125772A8D002D5268 /* FormCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6934025772A8D002D5268 /* FormCollectionReusableView.swift */; };
-		79A6934625772AA1002D5268 /* FormCollectionView+DD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6934525772AA1002D5268 /* FormCollectionView+DD.swift */; };
+		79A6934625772AA1002D5268 /* FormView+DD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6934525772AA1002D5268 /* FormView+DD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +80,7 @@
 		79A6933325772A58002D5268 /* FormCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionView.swift; sourceTree = "<group>"; };
 		79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewCell.swift; sourceTree = "<group>"; };
 		79A6934025772A8D002D5268 /* FormCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionReusableView.swift; sourceTree = "<group>"; };
-		79A6934525772AA1002D5268 /* FormCollectionView+DD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormCollectionView+DD.swift"; sourceTree = "<group>"; };
+		79A6934525772AA1002D5268 /* FormView+DD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormView+DD.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,7 +259,7 @@
 				79A6933325772A58002D5268 /* FormCollectionView.swift */,
 				79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */,
 				79A6934025772A8D002D5268 /* FormCollectionReusableView.swift */,
-				79A6934525772AA1002D5268 /* FormCollectionView+DD.swift */,
+				79A6934525772AA1002D5268 /* FormView+DD.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -393,7 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79A6934625772AA1002D5268 /* FormCollectionView+DD.swift in Sources */,
+				79A6934625772AA1002D5268 /* FormView+DD.swift in Sources */,
 				79A6931425768D43002D5268 /* FormView.swift in Sources */,
 				79A6934125772A8D002D5268 /* FormCollectionReusableView.swift in Sources */,
 				79A6928E25755CEB002D5268 /* FormViewController.swift in Sources */,

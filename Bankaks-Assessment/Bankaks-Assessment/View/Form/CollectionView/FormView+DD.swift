@@ -15,18 +15,29 @@ extension FormView: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return fields.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? FormCollectionViewCell ?? FormCollectionViewCell()
+        let field = fields[indexPath.item]
+        
+        cell.hintLabel.text = field.hint_text
+        let centeredParagraphStyle = NSMutableParagraphStyle()
+        centeredParagraphStyle.alignment = .center
+        let attributedPlaceholder = NSAttributedString(string: field.placeholder, attributes: [NSAttributedString.Key.paragraphStyle: centeredParagraphStyle])
+        cell.inputTextField.attributedPlaceholder = attributedPlaceholder
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath) as? FormCollectionReusableView ?? FormCollectionReusableView()
+        let collectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+        guard
+            let header = collectionReusableView as? FormCollectionReusableView,
+            let result = self.result else { return collectionReusableView }
         
-        header.headerLabel.text = "Deu bom demais"
+        header.headerLabel.text = result.screen_title
         return header
     }
 }

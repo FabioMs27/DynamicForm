@@ -34,7 +34,9 @@ class FormViewController: UIViewController {
         formViewModel.fetchForm(){ [weak self] result in
             switch result{
             case .success(let form):
-                print(form)
+                DispatchQueue.main.async {
+                    self?.formView.result = form.result
+                }
             case .failure(let error):
                 print(error)
             }
