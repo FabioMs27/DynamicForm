@@ -9,24 +9,38 @@ import UIKit
 
 class FormViewController: UIViewController {
     
+    var formView: FormView!
     var formViewModel: FormViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    init(formView: FormView, viewModel: FormViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.formView = formView
+        self.view = formView
+        formViewModel = viewModel
+        fetchForm()
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func fetchForm(){
+        hideActivityIndicator()
+        showActivityIndicator()
+        formViewModel.fetchForm(){ [weak self] result in
+            switch result{
+            case .success(let form):
+                DispatchQueue.main.async {
+                    self?.formView.result = form.result
+                }
+            case .failure(let error):
+                print(error)
+            }
+            self?.hideActivityIndicator()
+        }
+    }
 }

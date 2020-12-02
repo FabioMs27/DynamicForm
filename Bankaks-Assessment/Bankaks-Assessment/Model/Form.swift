@@ -10,10 +10,10 @@ import Foundation
 struct Form: Codable{
     let status: String
     let message: String
-    let result: Result
+    let result: Results
 }
 
-struct Result: Codable{
+struct Results: Codable{
     let number_of_fields: Int
     let screen_title: String
     let operator_name: String
@@ -27,14 +27,14 @@ struct Field: Codable{
     let regex: String
     let type: Type
     let ui_type: UIType
+    let is_mandatory: String
+    let hint_text: String
 }
 
 struct Type : Codable{
     let data_type: String
-    let is_array: Bool
+    let is_array: String
     let array_name: String
-    let is_mandatory: Bool
-    let hint_text: String
 }
 struct UIType: Codable{
     let type: String

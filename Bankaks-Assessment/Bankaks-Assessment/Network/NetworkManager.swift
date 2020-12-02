@@ -20,25 +20,84 @@ struct Resource<T: Decodable>{
 }
 
 extension Resource{
-    func request(completion: @escaping (T) -> ()){
+    func request(completion: @escaping (Result<T, NetworkError>) -> ()){
         DispatchQueue.global(qos: .background).async{
-            guard let unrappedUrl = self.path else { return }
-            var request = URLRequest(url: unrappedUrl)
+            guard let url = self.path else {
+                completion(.failure(.invalidURL))
+                return
+            }
+            
+            var request = URLRequest(url: url)
             if let keyValue = self.key, let headerValue = self.header{
                 request.addValue(keyValue, forHTTPHeaderField: headerValue)
             }
             request.httpMethod = "GET"
-            URLSession.shared.dataTask(with: request){ (data,response,err) in
-                guard let data = data else { return }
-                do {
-                    let parsedData = try JSONDecoder().decode(T.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(parsedData)
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                guard error == nil else {
+                    var networkError: NetworkError = .unknownError
+                    if error!.localizedDescription.uppercased().contains("OFFLINE") {
+                        networkError = .offline
                     }
-                } catch  {
-                    print(error.localizedDescription)
+                    completion(.failure(networkError))
+                    return
                 }
+                
+                guard let httpResponse = response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    completion(.failure(.connectionError))
+                    return
+                }
+                
+                guard let mime = response?.mimeType, mime == "application/json" else {
+                    completion(.failure(.invalidResponseType))
+                    return
+                }
+                
+                guard
+                    let data = data,
+                    let object: T = self.decode(data: data) else {
+                    DispatchQueue.main.async {
+                        completion(.failure(.objectNotDecoded))
+                    }
+                    return
+                }
+                
+                completion(.success(object))
             }.resume()
         }
+    }
+    
+    func requestApi(completion: @escaping (T) -> ()){
+        DispatchQueue.global(qos: .background).async{
+            if let unrappedUrl = self.path{
+                var request = URLRequest(url: unrappedUrl)
+                //if keys are necessary
+                if let keyValue = self.key, let headerValue = self.header{
+                    request.addValue(keyValue, forHTTPHeaderField: headerValue)
+                }
+                request.httpMethod = "GET"
+                URLSession.shared.dataTask(with: request){ (data,response,err) in
+                    if let data = data{
+                        do {
+                            let parsedData = try JSONDecoder().decode(T.self, from: data)
+                            DispatchQueue.main.async {
+                                completion(parsedData)
+                            }
+                        } catch  {
+                            print(error.localizedDescription)
+                        }
+                    }
+                }.resume()
+            }
+        }
+    }
+    
+    private func decode<T: Decodable>(data: Data) -> T? {
+        let decoder = JSONDecoder()
+        
+        guard let object = try? decoder.decode(T.self, from: data) else { return nil }
+        
+        return object
     }
 }

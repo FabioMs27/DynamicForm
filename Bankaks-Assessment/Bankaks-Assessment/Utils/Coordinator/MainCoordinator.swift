@@ -12,6 +12,7 @@ class MainCoordinator: Coordinator {
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
+        self.navigationController.isNavigationBarHidden = true
     }
     
     func start() {
@@ -27,10 +28,10 @@ class MainCoordinator: Coordinator {
 }
 
 extension MainCoordinator: ServiceOptionViewControllerCoodinator{
-    func navigateToFormViewController() {
-        let viewModel = FormViewModel()
-        let viewController = FormViewController()
-        viewController.formViewModel = viewModel
+    func navigateToFormViewController(option: Int) {
+        let view = FormView()
+        let viewModel = FormViewModel(option: option)
+        let viewController = FormViewController(formView: view, viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
