@@ -32,7 +32,7 @@ extension ValidationError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .pickerInputIsEmpty: return "Option must be selected to procced"
-        case .unexpectedOption:   return "This option is invalid"
+        case .unexpectedOption: return "This option is invalid"
         }
     }
 }

@@ -48,9 +48,27 @@ class FormViewController: UIViewController {
                     self?.formView.result = form.result
                 }
             case .failure(let error):
-                print(error)
+                self?.showAlert(title: error.localizedDescription)
             }
             self?.hideActivityIndicator()
+        }
+    }
+    
+    func showAlert(title: String?) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        let tryAgainAction = UIAlertAction(title: "Try again", style: .default) { [weak self] _ in
+            self?.fetchForm()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        alert.addAction(tryAgainAction)
+        alert.addAction(cancelAction)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
         }
     }
 }
