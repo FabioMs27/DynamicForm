@@ -21,6 +21,7 @@ class FormViewController: UIViewController {
         self.formView = formView
         self.view = formView
         formViewModel = viewModel
+        formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
         fetchForm()
     }
     
@@ -36,6 +37,22 @@ class FormViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    @objc func submitForm(sender: UIButton){
+        for cell in formView.collectionView.visibleCells{
+            guard let cell =  cell as? FormCollectionViewCell else { return }
+            do {
+                try formViewModel.isMandatoryValidator(value: cell.inputTextField.text, pattern: cell.regex, isMandatory: cell.isMandatory)
+                sender.backgroundColor = .green
+                formView.errorLabel.textColor = .clear
+                cell.isMandatoryLabel.textColor = .clear
+            } catch {
+                cell.isMandatoryLabel.text = error.localizedDescription
+                cell.isMandatoryLabel.textColor = .systemRed
+//                formView.collectionView.showHints()
+            }
+        }
     }
     
     func fetchForm(){

@@ -16,6 +16,8 @@ enum ValidationError: Error {
 //         unselectedDestinyCurrency
     case pickerInputIsEmpty
     case unexpectedOption
+    case inputIsEmpty
+    case invalidInput
 }
 
 extension ValidationError: LocalizedError {
@@ -33,6 +35,8 @@ extension ValidationError: LocalizedError {
         switch self {
         case .pickerInputIsEmpty: return "Option must be selected to procced"
         case .unexpectedOption: return "This option is invalid"
+        case .inputIsEmpty: return "Mandatory fields must be filled"
+        case .invalidInput: return "Some inputs are invalid. Check the hint"
         }
     }
 }
