@@ -3,10 +3,9 @@
 iOS project for the Bankaks open iOS Dev position assessment where the participant has to consume from an API and build a dynamic form based on the data retrieved.
 
 ## ScreenShots:
-![](Screenshots/Screenshot1.png =100x20)
-![](Screenshots/Screenshot2.png =100x20)
-![](Screenshots/Screenshot3.png =100x20)
-
+<img src="Screenshots/Screenshot1.png" alt="drawing" width="200" height="200"/>
+<img src="Screenshots/Screenshot2.png" alt="drawing" width="200" height="200"/>
+<img src="Screenshots/Screenshot3.png" alt="drawing" width="200" height="200"/>
 
 ## Technologies used:
 ### Design patters:
