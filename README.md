@@ -2,7 +2,7 @@
 
 iOS project for the Bankaks open iOS Dev position assessment where the participant has to consume from an API and build a dynamic form based on the data retrieved.
 
-##ScreenShots:
+## ScreenShots:
 ![Screenshot](Screenshots/Screenshot1.png =100x20) ![Screenshot](Screenshots/Screenshot2.png =100x20) ![Screenshot](Screenshots/Screenshot3.png =100x20)
 
 ## Technologies used:
