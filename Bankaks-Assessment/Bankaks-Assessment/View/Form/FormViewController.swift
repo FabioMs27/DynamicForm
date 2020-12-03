@@ -45,15 +45,26 @@ class FormViewController: UIViewController {
             guard let cell =  cell as? FormCollectionViewCell else { return }
             do {
                 try formViewModel.isMandatoryValidator(value: cell.inputTextField.text, pattern: cell.regex, isMandatory: cell.isMandatory)
-                formView.errorLabel.textColor = .clear
                 cell.isMandatoryLabel.textColor = .clear
             } catch {
-                cell.isMandatoryLabel.text = error.localizedDescription
-                cell.isMandatoryLabel.textColor = .systemRed
+                UIView.animate(withDuration: 0.25) {
+                    cell.isMandatoryLabel.text = error.localizedDescription
+                    cell.isMandatoryLabel.alpha = 1
+                }
+                cell.inputTextField.shakeAnimation()
                 isValid = false
             }
         }
-        if isValid { sender.backgroundColor = .green }
+        if isValid {
+            UIView.animate(withDuration: 1) {
+                sender.backgroundColor = .green
+                sender.setImage(.checkmark, for: .normal)
+            }
+        }
+        else {
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
+        }
     }
     
     func fetchForm(){

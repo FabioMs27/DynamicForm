@@ -39,10 +39,15 @@ class ServiceOptionViewController: UIViewController {
             let value = serviceOptionView.optionTextField.text
             let option = try serviceOptionViewModel.inputValidator(value: value)
             coordinator?.navigateToFormViewController(option: option)
-            serviceOptionView.errorLabel.textColor = .clear
+            serviceOptionView.errorLabel.alpha = 0
         }catch{
-            serviceOptionView.errorLabel.text = error.localizedDescription
-            serviceOptionView.errorLabel.textColor = .systemRed
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                self?.serviceOptionView.errorLabel.text = error.localizedDescription
+                self?.serviceOptionView.errorLabel.alpha = 1
+            }
+            serviceOptionView.optionTextField.shakeAnimation()
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
         }
     }
 

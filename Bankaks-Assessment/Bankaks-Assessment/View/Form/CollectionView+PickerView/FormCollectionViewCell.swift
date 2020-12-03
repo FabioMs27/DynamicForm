@@ -38,18 +38,20 @@ class FormCollectionViewCell: UICollectionViewCell {
     lazy var hintLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.numberOfLines = 0
-        label.textColor = .black
+        label.textColor = #colorLiteral(red: 0.06027474999, green: 0.4766826034, blue: 0.2427200377, alpha: 1)
         return label
     }()
     
     lazy var isMandatoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.numberOfLines = 0
-        label.textColor = .clear
+        label.text = "*"
+        label.textColor = .systemRed
+        label.alpha = 0
         return label
     }()
     
@@ -107,17 +109,17 @@ extension FormCollectionViewCell: ViewCodable {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            isMandatoryLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            isMandatoryLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            isMandatoryLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            isMandatoryLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 16),
+            isMandatoryLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
+            isMandatoryLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20),
             
-            inputTextField.topAnchor.constraint(equalTo: isMandatoryLabel.bottomAnchor, constant: -2),
-            inputTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            inputTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            inputTextField.topAnchor.constraint(equalTo: isMandatoryLabel.bottomAnchor, constant: 8),
+            inputTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
+            inputTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20),
             
-            hintLabel.topAnchor.constraint(equalTo: inputTextField.bottomAnchor, constant: -2),
-            hintLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            hintLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            hintLabel.topAnchor.constraint(equalTo: inputTextField.bottomAnchor, constant: 8),
+            hintLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
+            hintLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20),
         ])
     }
     

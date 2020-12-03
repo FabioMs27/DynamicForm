@@ -48,7 +48,7 @@ extension FormView: UICollectionViewDataSource{
     }
     
     func setUpCell(_ cell: inout FormCollectionViewCell, field: Field){
-        cell.hintLabel.text = field.hint_text
+        cell.hintLabel.text = "hint: \(field.hint_text)"
         
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
@@ -81,6 +81,10 @@ extension FormView: UITextFieldDelegate{
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

@@ -13,7 +13,7 @@ class FormCollectionReusableView: UICollectionReusableView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 22)
-        label.textColor = #colorLiteral(red: 0.5019147992, green: 0.5019902587, blue: 0.5018982291, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.04288191348, green: 0.476744771, blue: 0.2427864671, alpha: 1)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -43,6 +43,6 @@ extension FormCollectionReusableView: ViewCodable{
     }
     
     func setupAdditionalConfiguration() {
-        backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        backgroundColor = .clear
     }
 }
