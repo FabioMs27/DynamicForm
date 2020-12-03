@@ -40,7 +40,7 @@ class FormCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.numberOfLines = 0
-        label.textColor = .clear
+        label.textColor = .black
         return label
     }()
     

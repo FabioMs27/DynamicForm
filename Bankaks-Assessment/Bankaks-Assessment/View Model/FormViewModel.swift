@@ -18,7 +18,7 @@ class FormViewModel{
         let value = value ?? ""
         if value.isEmpty, isMandatory { throw ValidationError.inputIsEmpty }
         if pattern.isEmpty { return }
-//        guard let regex = try? NSRegularExpression(pattern: pattern) else { throw ValidationError.invalidInput }
+//        guard let regex = try? NSRegularExpression(pattern: escappedPattern) else { throw ValidationError.invalidInput }
 //        let isValid = regex.matches(value)
 //        if !isValid { throw ValidationError.invalidInput }
     }

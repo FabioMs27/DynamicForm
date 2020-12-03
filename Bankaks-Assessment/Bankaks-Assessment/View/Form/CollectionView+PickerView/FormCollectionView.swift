@@ -17,15 +17,6 @@ class FormCollectionView: UICollectionView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    func showHints(){
-        for cell in visibleCells{
-            guard let cell = cell as? FormCollectionViewCell else { return }
-            cell.isMandatoryLabel.text = "*"
-            cell.isMandatoryLabel.textColor = .systemRed
-            cell.hintLabel.textColor = .black
-        }
-    }
 
 }
 

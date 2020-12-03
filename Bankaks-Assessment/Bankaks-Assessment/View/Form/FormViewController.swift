@@ -40,19 +40,20 @@ class FormViewController: UIViewController {
     }
     
     @objc func submitForm(sender: UIButton){
+        var isValid = true
         for cell in formView.collectionView.visibleCells{
             guard let cell =  cell as? FormCollectionViewCell else { return }
             do {
                 try formViewModel.isMandatoryValidator(value: cell.inputTextField.text, pattern: cell.regex, isMandatory: cell.isMandatory)
-                sender.backgroundColor = .green
                 formView.errorLabel.textColor = .clear
                 cell.isMandatoryLabel.textColor = .clear
             } catch {
                 cell.isMandatoryLabel.text = error.localizedDescription
                 cell.isMandatoryLabel.textColor = .systemRed
-//                formView.collectionView.showHints()
+                isValid = false
             }
         }
+        if isValid { sender.backgroundColor = .green }
     }
     
     func fetchForm(){
