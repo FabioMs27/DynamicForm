@@ -6,12 +6,13 @@
 //
 
 import UIKit
-
+/// Class containing the form Interface
 class FormViewController: UIViewController {
-    
+    //MARK:- Atributtes
     var formView: FormView!
     var formViewModel: FormViewModel!
-
+    
+    //MARK:- Constructor
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -39,6 +40,8 @@ class FormViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
+    /// Method called when submit button is pressed. It validates all fields and update accordingly.
+    /// - Parameter sender: The button that was pressed.
     @objc func submitForm(sender: UIButton){
         var isValid = true
         for cell in formView.collectionView.visibleCells{
@@ -60,6 +63,7 @@ class FormViewController: UIViewController {
                 sender.backgroundColor = .green
                 sender.setImage(.checkmark, for: .normal)
             }
+            showOkAlert(title: "You have completed the Assessment")
         }
         else {
             let generator = UIImpactFeedbackGenerator(style: .heavy)
@@ -67,6 +71,7 @@ class FormViewController: UIViewController {
         }
     }
     
+    /// Method that fetchs from api and uptade view accordingly. It sets up a loading screen while fetching data.
     func fetchForm(){
         hideActivityIndicator()
         showActivityIndicator()
@@ -83,6 +88,8 @@ class FormViewController: UIViewController {
         }
     }
     
+    /// Method that presents an alert. It has two options and goes back to the previous screen.
+    /// - Parameter title: A string to be presented on the alert view.
     func showAlert(title: String?) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         
@@ -98,6 +105,20 @@ class FormViewController: UIViewController {
         
         DispatchQueue.main.async { [weak self] in
             self?.present(alert, animated: true)
+        }
+    }
+    
+    /// Method that presents an alert. It has an ok option to continue the app.
+    /// - Parameter title: A string to be presented on the alert view.
+    func showOkAlert(title: String?) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
         }
     }
 }

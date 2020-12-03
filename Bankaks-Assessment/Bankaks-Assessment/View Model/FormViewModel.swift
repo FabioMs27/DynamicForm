@@ -7,13 +7,21 @@
 
 import Foundation
 
+/// Layer related to the validation and fetch part of the form feature.
 class FormViewModel{
+    //MARK:- Atributtes
     let option: Int
-    
+    //MARK:- Constructor
     init(option: Int) {
         self.option = option
     }
-    
+    //MARK:- Methods
+    /// Method that validates each form field and returns an error in calse it's invalid.
+    /// - Parameters:
+    ///   - value: A string containing the value retrieved from the textField.
+    ///   - pattern: The regex related pattern.
+    ///   - isMandatory: A boolean checking if a textField is mandatory.
+    /// - Throws: An error discription to why the validation failed.
     func isMandatoryValidator(value: String?, pattern: String, isMandatory: Bool) throws {
         let value = value ?? ""
         if value.isEmpty, isMandatory { throw ValidationError.inputIsEmpty }
@@ -23,6 +31,8 @@ class FormViewModel{
 //        if !isValid { throw ValidationError.invalidInput }
     }
     
+    /// Method which calls the api and return a completion containing either the model or an error.
+    /// - Parameter completion: A closure containing either the method or an error.
     func fetchForm(completion: @escaping (Result<Form, NetworkError>) -> Void){
         let url = URL(string: "https://api-staging.bankaks.com/task/\(option)")
         let apiRequest = Resource<Form>(path: url)
@@ -37,8 +47,11 @@ class FormViewModel{
         }
     }
 }
-
+//MARK:- NSRegularExpression
 extension NSRegularExpression {
+    /// Method that checks if a string value matches with the regex.
+    /// - Parameter string: The string value which will be checked
+    /// - Returns: A boolean containing it's validation.
     func matches(_ string: String) -> Bool {
         let range = NSRange(location: 0, length: string.utf16.count)
         return firstMatch(in: string, options: [], range: range) != nil

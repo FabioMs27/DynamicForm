@@ -33,6 +33,7 @@
 		79A6934625772AA1002D5268 /* FormView+DD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6934525772AA1002D5268 /* FormView+DD.swift */; };
 		79F96E63257854C400F6B617 /* FormPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F96E62257854C400F6B617 /* FormPickerView.swift */; };
 		79F96E6B25789B5900F6B617 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F96E6A25789B5900F6B617 /* UIView.swift */; };
+		79F96E7925792CF500F6B617 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F96E7825792CF500F6B617 /* Metrics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		79A6934525772AA1002D5268 /* FormView+DD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormView+DD.swift"; sourceTree = "<group>"; };
 		79F96E62257854C400F6B617 /* FormPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPickerView.swift; sourceTree = "<group>"; };
 		79F96E6A25789B5900F6B617 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		79F96E7825792CF500F6B617 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				79A692B725756D8E002D5268 /* ViewCodable.swift */,
 				79A6932425770D70002D5268 /* UIViewController.swift */,
 				79F96E6A25789B5900F6B617 /* UIView.swift */,
+				79F96E7825792CF500F6B617 /* Metrics.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				79A6934125772A8D002D5268 /* FormCollectionReusableView.swift in Sources */,
 				79A6928E25755CEB002D5268 /* FormViewController.swift in Sources */,
 				79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */,
+				79F96E7925792CF500F6B617 /* Metrics.swift in Sources */,
 				79A6928625755CC5002D5268 /* FormViewModel.swift in Sources */,
 				79A692A225755D7F002D5268 /* MainCoordinator.swift in Sources */,
 				79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */,

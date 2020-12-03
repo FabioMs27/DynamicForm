@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Network manager atributes. It contains the url path and the keys required to fetch from it.
 struct Resource<T: Decodable>{
     let path: URL?
     let key: String?
@@ -20,6 +21,9 @@ struct Resource<T: Decodable>{
 }
 
 extension Resource{
+    /// Method that request to the api and returns either a model or error.
+    /// - Parameter completion: Closure containing either the model after parsing or an error based on the request.
+    /// - Returns: Void
     func request(completion: @escaping (Result<T, NetworkError>) -> ()){
         DispatchQueue.global(qos: .background).async{
             guard let url = self.path else {
@@ -68,31 +72,9 @@ extension Resource{
         }
     }
     
-    func requestApi(completion: @escaping (T) -> ()){
-        DispatchQueue.global(qos: .background).async{
-            if let unrappedUrl = self.path{
-                var request = URLRequest(url: unrappedUrl)
-                //if keys are necessary
-                if let keyValue = self.key, let headerValue = self.header{
-                    request.addValue(keyValue, forHTTPHeaderField: headerValue)
-                }
-                request.httpMethod = "GET"
-                URLSession.shared.dataTask(with: request){ (data,response,err) in
-                    if let data = data{
-                        do {
-                            let parsedData = try JSONDecoder().decode(T.self, from: data)
-                            DispatchQueue.main.async {
-                                completion(parsedData)
-                            }
-                        } catch  {
-                            print(error.localizedDescription)
-                        }
-                    }
-                }.resume()
-            }
-        }
-    }
-    
+    /// Method that parse data and returns a model.
+    /// - Parameter data: Data recieved from the api request.
+    /// - Returns: A generic model that conforms to Decodable.
     private func decode<T: Decodable>(data: Data) -> T? {
         let decoder = JSONDecoder()
         

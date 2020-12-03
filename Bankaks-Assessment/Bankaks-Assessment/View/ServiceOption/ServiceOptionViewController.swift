@@ -7,18 +7,19 @@
 
 import UIKit
 
-protocol ServiceOptionViewControllerCoodinator: class{
+/// Protocol for the view flow from the second screen.
+protocol ServiceOptionViewControllerCoordinator: class{
     func navigateToFormViewController(option: Int)
 }
-
+/// Class containing the service option Interface
 class ServiceOptionViewController: UIViewController {
-    
+    //MARK:- Atributtes
     var serviceOptionView: ServiceOptionView!{
         willSet{ view = newValue }
     }
     var serviceOptionViewModel: ServiceOptionViewModel!
-    var coordinator: ServiceOptionViewControllerCoodinator?
-    
+    var coordinator: ServiceOptionViewControllerCoordinator?
+    //MARK:- Constructors
     init(view: ServiceOptionView, viewModel: ServiceOptionViewModel) {
         super.init(nibName: nil, bundle: nil)
         serviceOptionView = view
@@ -33,7 +34,8 @@ class ServiceOptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+    //MARK:- Methods
+    /// Method called when button is pressed. It validas the textFields and either presents an error or goes to next screen.
     @objc func goToFormView(){
         do{
             let value = serviceOptionView.optionTextField.text

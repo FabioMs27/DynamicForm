@@ -6,17 +6,17 @@
 //
 
 import UIKit
-
+///Custom view with the service option interface
 final class ServiceOptionView: UIView{
-    
+    //MARK:- Atributtes
     var options = [
         "1",
         "2",
         "3"
     ]
-    
+    //MARK:- Interface
     lazy var backgroundView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Metrics.Device.height/2))
         view.backgroundColor = #colorLiteral(red: 0.4824108481, green: 0.7250191569, blue: 0.2658652067, alpha: 1)
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
@@ -91,7 +91,7 @@ final class ServiceOptionView: UIView{
         button.layer.shadowRadius = 10
         return button
     }()
-    
+    //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
@@ -102,7 +102,7 @@ final class ServiceOptionView: UIView{
     }
     
 }
-
+//MARK:- UITextFieldDelegate
 extension ServiceOptionView: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -112,9 +112,9 @@ extension ServiceOptionView: UITextFieldDelegate{
         return false
     }
 }
-
+//MARK:- UIPickerViewDelegate
 extension ServiceOptionView: UIPickerViewDelegate{}
-
+//MARK:- UIPickerViewDataSource
 extension ServiceOptionView: UIPickerViewDataSource{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -135,7 +135,7 @@ extension ServiceOptionView: UIPickerViewDataSource{
     }
     
 }
-
+//MARK:- View Code
 extension ServiceOptionView: ViewCodable{
     func setupHierarchyViews() {
         addSubview(backgroundView)
@@ -150,8 +150,8 @@ extension ServiceOptionView: ViewCodable{
         NSLayoutConstraint.activate([
             logoImageView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
             logoImageView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
-            logoImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.8),
-            logoImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.8),
+            logoImageView.widthAnchor.constraint(equalToConstant: Metrics.Device.width * 0.8),
+            logoImageView.heightAnchor.constraint(equalToConstant: Metrics.Device.height * 0.8),
             
             welcomeLabel.topAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.topAnchor, constant: 20),
             welcomeLabel.leadingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.leadingAnchor, constant: 20),

@@ -8,7 +8,7 @@
 import UIKit
 
 final class FormView: UIView {
-    
+    //MARK:- Atributtes
     var result: Results? {
         willSet{ collectionView.reloadData() }
     }
@@ -17,10 +17,7 @@ final class FormView: UIView {
         result?.fields ?? []
     }
     
-    var screen: CGSize {
-        UIScreen.main.bounds.size
-    }
-    
+    //MARK:- Interface
     lazy var backgroundView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/4))
         view.backgroundColor = #colorLiteral(red: 0.4824108481, green: 0.7250191569, blue: 0.2658652067, alpha: 1)
@@ -34,8 +31,8 @@ final class FormView: UIView {
     lazy var collectionView: FormCollectionView = { [weak self] in
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: screen.width, height: screen.height * 0.12)
-        layout.headerReferenceSize = CGSize(width: screen.width, height: 120)
+        layout.itemSize = CGSize(width: Metrics.Device.width, height: Metrics.Device.height * 0.12)
+        layout.headerReferenceSize = CGSize(width: Metrics.Device.width, height: 120)
         let collectionView = FormCollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -59,7 +56,7 @@ final class FormView: UIView {
         button.layer.shadowRadius = 10
         return button
     }()
-    
+    //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
@@ -68,7 +65,7 @@ final class FormView: UIView {
         super.init(coder: coder)
     }
 }
-
+//MARK:- View Code
 extension FormView: ViewCodable{
     func setupHierarchyViews() {
         addSubview(backgroundView)

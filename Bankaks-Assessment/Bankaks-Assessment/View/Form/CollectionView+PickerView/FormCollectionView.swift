@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Custom collection view used to create the dynamic forms.
 class FormCollectionView: UICollectionView {
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {

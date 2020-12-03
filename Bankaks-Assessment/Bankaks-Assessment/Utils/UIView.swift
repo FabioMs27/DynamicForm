@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIView{
+    /// Shake animation used when textFields validations aren't fullfilled.
     func shakeAnimation() {
         let animation = CABasicAnimation(keyPath: "position")
         animation.duration = 0.07

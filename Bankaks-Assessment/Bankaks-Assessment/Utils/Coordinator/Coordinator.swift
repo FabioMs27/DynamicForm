@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// A protocol containing methods related to the view flow of the app
 protocol Coordinator {
     var navigationController: UINavigationController { get set }
     init(navigationController: UINavigationController)

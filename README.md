@@ -25,3 +25,4 @@ iOS project for the Bankaks open iOS Dev position assessment where the participa
   - Extensions
   - Api request
   - Loading screen
+  - GitFlow

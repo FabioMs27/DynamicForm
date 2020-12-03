@@ -7,17 +7,19 @@
 
 import UIKit
 
+/// Enum with the states of the textField.
 enum InputState {
     case filled
     case notFilled
     case optional
 }
 
+/// Custom collectionViewCell with the inputs.
 class FormCollectionViewCell: UICollectionViewCell {
-    
+    //MARK:- Atributtes
     var isMandatory: Bool = false
     var regex: String = ""
-    
+    //MARK:- Interface
     lazy var inputTextField: UITextField = { [weak self] in
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +56,7 @@ class FormCollectionViewCell: UICollectionViewCell {
         label.alpha = 0
         return label
     }()
-    
+    //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
@@ -65,16 +67,16 @@ class FormCollectionViewCell: UICollectionViewCell {
     }
     
 }
-
+//MARK:- UITextFieldDelegate
 extension FormCollectionViewCell: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
-
+//MARK:- UIPickerViewDelegate
 extension FormCollectionViewCell: UIPickerViewDelegate{}
-
+//MARK:- UIPickerViewDataSource
 extension FormCollectionViewCell: UIPickerViewDataSource{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -99,7 +101,7 @@ extension FormCollectionViewCell: UIPickerViewDataSource{
     }
     
 }
-
+//MARK:- View Code
 extension FormCollectionViewCell: ViewCodable {
     func setupHierarchyViews() {
         addSubview(inputTextField)

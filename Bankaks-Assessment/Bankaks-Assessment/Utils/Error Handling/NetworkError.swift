@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Enum containing the errors that can occur on the app related to network.
 enum NetworkError: Error {
     case offline
     case unknownError

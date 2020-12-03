@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Custom pickerView containing values from model.
 class FormPickerView: UIPickerView {
     var values = [(name: String, id: String)]()
 }

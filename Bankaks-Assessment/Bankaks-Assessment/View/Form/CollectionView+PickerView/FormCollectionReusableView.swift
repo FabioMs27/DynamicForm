@@ -7,8 +7,9 @@
 
 import UIKit
 
+/// Custom collection view header
 class FormCollectionReusableView: UICollectionReusableView {
-    
+    //MARK:- Interface
     lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +19,7 @@ class FormCollectionReusableView: UICollectionReusableView {
         label.textAlignment = .center
         return label
     }()
-    
+    //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
@@ -27,7 +28,7 @@ class FormCollectionReusableView: UICollectionReusableView {
         super.init(coder: coder)
     }
 }
-
+//MARK:- View Code
 extension FormCollectionReusableView: ViewCodable{
     func setupHierarchyViews() {
         addSubview(headerLabel)

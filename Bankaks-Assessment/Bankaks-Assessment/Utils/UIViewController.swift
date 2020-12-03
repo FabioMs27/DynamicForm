@@ -10,6 +10,7 @@ import UIKit
 extension UIViewController {
     fileprivate var tag: Int { 9999 }
     
+    /// Presents a loading screen on top of the view controller.
     func showActivityIndicator() {
         DispatchQueue.main.async {
             let spinnerView = UIView(frame: .zero)
@@ -37,6 +38,7 @@ extension UIViewController {
         }
     }
     
+    /// Remove the loading screen from the main view.
     func hideActivityIndicator() {
         DispatchQueue.main.async {
             for view in self.view.subviews {

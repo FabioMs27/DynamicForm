@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Enum containing the errors that can occur on the app.
 enum ValidationError: Error {
     case pickerInputIsEmpty
     case unexpectedOption
