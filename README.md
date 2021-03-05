@@ -18,7 +18,7 @@ iOS project for the Bankaks open iOS Dev position assessment where the participa
   - Delegation
 
 ### Arquitecture used:
-  - MVVM
+  - MVVM-C
   
 ### Others:
   - Error Handling
