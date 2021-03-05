@@ -1,6 +1,5 @@
-# Bankaks-Assessment
 
-iOS project for the Bankaks open iOS Dev position assessment where the participant has to consume from an API and build a dynamic form based on the data retrieved.
+iOS project that builds a dynamic form based on the data recieved.
 
 ## Gif:
 ![](https://media.giphy.com/media/6g5ktcc4Jl2A2TusYS/giphy.gif)
