@@ -9,24 +9,24 @@ import UIKit
 
 class FormViewController: UIViewController {
     
-    var formView: FormView!
-    var formViewModel: FormViewModel!
+    let formView: FormView
+    let formViewModel: FormViewModel
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     init(formView: FormView, viewModel: FormViewModel) {
-        super.init(nibName: nil, bundle: nil)
         self.formView = formView
+        self.formViewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
         self.view = formView
-        formViewModel = viewModel
         formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
         fetchForm()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError()
     }
     
     override func viewWillAppear(_ animated: Bool) {

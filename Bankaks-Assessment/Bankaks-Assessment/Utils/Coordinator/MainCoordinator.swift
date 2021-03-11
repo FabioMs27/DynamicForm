@@ -19,9 +19,7 @@ class MainCoordinator: Coordinator {
         let view = ServiceOptionView()
         let viewModel = ServiceOptionViewModel()
         let viewController = ServiceOptionViewController(view: view, viewModel: viewModel)
-        viewController.serviceOptionViewModel = viewModel
         viewController.coordinator = self
-        viewController.serviceOptionView = view
         navigationController.pushViewController(viewController, animated: false)
     }
     

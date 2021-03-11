@@ -13,25 +13,20 @@ protocol ServiceOptionViewControllerCoodinator: class{
 
 class ServiceOptionViewController: UIViewController {
     
-    var serviceOptionView: ServiceOptionView!{
-        willSet{ view = newValue }
-    }
-    var serviceOptionViewModel: ServiceOptionViewModel!
+    let serviceOptionView: ServiceOptionView
+    let serviceOptionViewModel: ServiceOptionViewModel
     var coordinator: ServiceOptionViewControllerCoodinator?
     
     init(view: ServiceOptionView, viewModel: ServiceOptionViewModel) {
+        self.serviceOptionView = view
+        self.serviceOptionViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        serviceOptionView = view
-        serviceOptionViewModel = viewModel
+        self.view  = view
         serviceOptionView.proccedButton.addTarget(self, action: #selector(goToFormView), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        fatalError()
     }
     
     @objc func goToFormView(){

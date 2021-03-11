@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class ServiceOptionView: UIView{
     
@@ -176,5 +177,15 @@ extension ServiceOptionView: ViewCodable{
     
     func setupAdditionalConfiguration() {
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+}
+
+//MARK: - Preview
+struct ServiceOptionViewControllerPreviews: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            return ServiceOptionViewController(view: ServiceOptionView(), viewModel: ServiceOptionViewModel())
+        }
+        .previewDevice("iPhone SE (2nd generation)")
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class FormView: UIView {
     
@@ -52,7 +53,6 @@ final class FormView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 5
-        button.layer.cornerRadius = 5
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.2
         button.layer.shadowOffset = .zero
@@ -92,5 +92,15 @@ extension FormView: ViewCodable{
     
     func setupAdditionalConfiguration() {
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+}
+
+//MARK: - Preview
+struct FormViewControllerPreviews: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            return FormViewController(formView: FormView(), viewModel: FormViewModel(option: 1))
+        }
+        .previewDevice("iPhone SE (2nd generation)")
     }
 }
