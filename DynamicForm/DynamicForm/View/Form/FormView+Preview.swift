@@ -44,7 +44,7 @@ final class FormView: UIView {
     lazy var collectionView: UICollectionView = { [weak self] in
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: Metrics.Device.width, height: Metrics.Device.height * 0.12)
+        layout.itemSize = CGSize(width: Metrics.Device.width, height: Metrics.Device.height * 0.15)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -75,7 +75,7 @@ final class FormView: UIView {
     }
 }
 //MARK:- View Code
-extension FormView: ViewCodable{
+extension FormView: ViewCodable {
     func setupHierarchyViews() {
         addSubview(backgroundView)
         backgroundView.addSubview(
@@ -101,6 +101,12 @@ extension FormView: ViewCodable{
     
     func setupAdditionalConfiguration() {
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+}
+
+extension UICollectionViewFlowLayout {
+    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+        return true
     }
 }
 

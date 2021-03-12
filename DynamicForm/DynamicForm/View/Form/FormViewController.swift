@@ -61,11 +61,11 @@ class FormViewController: UIViewController {
     }
     
     /// Method that fetchs from api and uptade view accordingly. It sets up a loading screen while fetching data.
-    func fetchForm(){
+    func fetchForm() {
         hideActivityIndicator()
         showActivityIndicator()
-        formViewModel.fetchForm(){ [weak self] result in
-            switch result{
+        formViewModel.fetchForm() { [weak self] result in
+            switch result {
             case .success(let form):
                 DispatchQueue.main.async {
                     self?.formView.result = form.result

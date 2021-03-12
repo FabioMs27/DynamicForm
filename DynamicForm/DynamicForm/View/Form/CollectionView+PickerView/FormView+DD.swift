@@ -18,9 +18,9 @@ enum Ui_Types: String {
     case textfield
 }
 //MARK:- UICollectionViewDelegate
-extension FormView: UICollectionViewDelegate{ }
+extension FormView: UICollectionViewDelegate { }
 //MARK:- UICollectionViewDataSource
-extension FormView: UICollectionViewDataSource{
+extension FormView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -42,7 +42,7 @@ extension FormView: UICollectionViewDataSource{
     /// - Parameters:
     ///   - cell: The custom cell with the textFields.
     ///   - field: The model containing info about the cell.
-    func setUpCell(_ cell: inout FormCollectionViewCell, field: Field){
+    func setUpCell(_ cell: inout FormCollectionViewCell, field: Field) {
         //Hint
         cell.hintLabel.text = "hint: \(field.hint_text)"
         //Place holder
@@ -72,8 +72,8 @@ extension FormView: UICollectionViewDataSource{
     }
 }
 //MARK:- UITextFieldDelegate
-extension FormView: UITextFieldDelegate{
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+extension FormView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let allowedCharacters = CharacterSet.decimalDigits
         let characterSet = CharacterSet(charactersIn: string)
         return allowedCharacters.isSuperset(of: characterSet)

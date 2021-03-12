@@ -67,16 +67,16 @@ class FormCollectionViewCell: UICollectionViewCell {
     
 }
 //MARK:- UITextFieldDelegate
-extension FormCollectionViewCell: UITextFieldDelegate{
+extension FormCollectionViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
 }
 //MARK:- UIPickerViewDelegate
-extension FormCollectionViewCell: UIPickerViewDelegate{}
+extension FormCollectionViewCell: UIPickerViewDelegate { }
 //MARK:- UIPickerViewDataSource
-extension FormCollectionViewCell: UIPickerViewDataSource{
+extension FormCollectionViewCell: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -105,7 +105,7 @@ extension FormCollectionViewCell: ViewCodable {
     func setupHierarchyViews() {
         let margins:[LayoutAnchor] = [.leading(layoutMargins.left), .trailing(-layoutMargins.right)]
         addSubview(inputTextField, anchors: margins)
-        addSubview(hintLabel, anchors: margins)
+        addSubview(hintLabel, anchors: margins + [.bottom(0)])
         addSubview(isMandatoryLabel, anchors: margins)
     }
     

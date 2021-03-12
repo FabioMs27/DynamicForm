@@ -10,7 +10,7 @@ import UIKit
 import SwiftUI
 
 ///Custom view with the service option interface
-final class ServiceOptionView: UIView{
+final class ServiceOptionView: UIView {
     //MARK:- Atributtes
     var options = [
         "1",
@@ -106,7 +106,7 @@ final class ServiceOptionView: UIView{
     
 }
 //MARK:- UITextFieldDelegate
-extension ServiceOptionView: UITextFieldDelegate{
+extension ServiceOptionView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -116,9 +116,9 @@ extension ServiceOptionView: UITextFieldDelegate{
     }
 }
 //MARK:- UIPickerViewDelegate
-extension ServiceOptionView: UIPickerViewDelegate{}
+extension ServiceOptionView: UIPickerViewDelegate { }
 //MARK:- UIPickerViewDataSource
-extension ServiceOptionView: UIPickerViewDataSource{
+extension ServiceOptionView: UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -139,7 +139,7 @@ extension ServiceOptionView: UIPickerViewDataSource{
     
 }
 //MARK:- View Code
-extension ServiceOptionView: ViewCodable{
+extension ServiceOptionView: ViewCodable {
     func setupHierarchyViews() {
         addSubview(backgroundView)
         addSubview(
