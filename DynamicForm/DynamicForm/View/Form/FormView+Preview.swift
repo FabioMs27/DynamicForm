@@ -11,7 +11,10 @@ import SwiftUI
 final class FormView: UIView {
     //MARK:- Atributtes
     var result: Results? {
-        willSet{ collectionView.reloadData() }
+        willSet{
+            collectionView.reloadData()
+            headerLabel.text = newValue?.screen_title
+        }
     }
     
     var fields: [Field] {
@@ -25,27 +28,33 @@ final class FormView: UIView {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
         view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 10
+        view.layer.shadowRadius = 5
         return view
     }()
     
-    lazy var collectionView: FormCollectionView = { [weak self] in
+    lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = #colorLiteral(red: 0.04288191348, green: 0.476744771, blue: 0.2427864671, alpha: 1)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    
+    lazy var collectionView: UICollectionView = { [weak self] in
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: Metrics.Device.width, height: Metrics.Device.height * 0.12)
-        layout.headerReferenceSize = CGSize(width: Metrics.Device.width, height: 120)
-        let collectionView = FormCollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(FormCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.register(FormCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .clear
         return collectionView
     }()
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Submit", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -69,21 +78,24 @@ final class FormView: UIView {
 extension FormView: ViewCodable{
     func setupHierarchyViews() {
         addSubview(backgroundView)
-        addSubview(collectionView)
-        addSubview(submitButton)
+        backgroundView.addSubview(
+            headerLabel,
+            anchors: [.centerX(0), .centerY(0)]
+        )
+        addSubview(
+            collectionView,
+            anchors: [.top(backgroundView.frame.height), .leading(layoutMargins.left), .trailing(-layoutMargins.right)]
+        )
+        addSubview(
+            submitButton,
+            anchors: [.centerX(0), .leading(20 + layoutMargins.left), .trailing(-20 - layoutMargins.right)]
+        )
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -32),
-            collectionView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            
-            submitButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            submitButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16),
-            submitButton.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
-            submitButton.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20)
+            collectionView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16),
+            submitButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16)
         ])
     }
     
@@ -96,8 +108,10 @@ extension FormView: ViewCodable{
 struct FormViewControllerPreviews: PreviewProvider {
     static var previews: some View {
         UIViewControllerPreview {
-            return FormViewController(formView: FormView(), viewModel: FormViewModel(option: 1))
+            return FormViewController(
+                formView: FormView(),
+                viewModel: FormViewModel(option: 1)
+            )
         }
-        .previewDevice("iPhone SE (2nd generation)")
     }
 }

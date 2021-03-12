@@ -17,9 +17,4 @@ enum Metrics {
             UIScreen.main.bounds.size.height
         }
     }
-    
-    enum Margin {
-        static let leading: CGFloat = 20
-        static let trailing: CGFloat = -20
-    }
 }

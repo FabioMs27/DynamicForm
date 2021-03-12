@@ -15,7 +15,7 @@ class MainCoordinator: Coordinator {
     //MARK: - Constructor
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.navigationController.isNavigationBarHidden = true
+        self.navigationController.isNavigationBarHidden = false
     }
     //MARK: - Methods
     /// Method that starts the view flow of the app. It adds a ViewController to a navigationController.
@@ -24,6 +24,7 @@ class MainCoordinator: Coordinator {
         let viewModel = ServiceOptionViewModel()
         let viewController = ServiceOptionViewController(view: view, viewModel: viewModel)
         viewController.coordinator = self
+        navigationController.navigationBar.prefersLargeTitles = true
         navigationController.pushViewController(viewController, animated: false)
     }
     

@@ -24,7 +24,7 @@ final class ServiceOptionView: UIView{
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
         view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 10
+        view.layer.shadowRadius = 5
         return view
     }()
     
@@ -52,7 +52,10 @@ final class ServiceOptionView: UIView{
         textField.delegate = self
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
-        let attributedPlaceholder = NSAttributedString(string: "Choose an option", attributes: [NSAttributedString.Key.paragraphStyle: centeredParagraphStyle])
+        let attributedPlaceholder = NSAttributedString(
+            string: "Choose an option",
+            attributes: [NSAttributedString.Key.paragraphStyle: centeredParagraphStyle]
+        )
         textField.attributedPlaceholder = attributedPlaceholder
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
@@ -92,6 +95,8 @@ final class ServiceOptionView: UIView{
     //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        layoutMargins.left = 20
+        layoutMargins.right = 20
         setupViews()
     }
     
@@ -136,11 +141,10 @@ extension ServiceOptionView: UIPickerViewDataSource{
 //MARK:- View Code
 extension ServiceOptionView: ViewCodable{
     func setupHierarchyViews() {
-        let margin = Metrics.Margin.self
         addSubview(backgroundView)
-        backgroundView.addSubview(
+        addSubview(
             welcomeLabel,
-            anchors: [.top(20), .leading(20), .trailing(0)]
+            anchors: [.leading(layoutMargins.left), .trailing(0)]
         )
         backgroundView.addSubview(
             logoImageView,
@@ -148,11 +152,11 @@ extension ServiceOptionView: ViewCodable{
         )
         addSubview(
             optionTextField,
-            anchors: [.centerX(0), .centerY(0), .leading(margin.leading), .trailing(margin.trailing)]
+            anchors: [.centerX(0), .centerY(0), .leading(layoutMargins.left), .trailing(-layoutMargins.right)]
         )
         addSubview(
             proccedButton,
-            anchors: [.centerX(0), .bottom(-16), .leading(20), .trailing(-20)]
+            anchors: [.centerX(0), .leading(20 + layoutMargins.left), .trailing(-20 - layoutMargins.right)]
         )
         addSubview(
             errorLabel,
@@ -160,7 +164,12 @@ extension ServiceOptionView: ViewCodable{
         )
     }
     
-    func setupConstraints() { }
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            welcomeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -40),
+            proccedButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16)
+        ])
+    }
     
     func setupAdditionalConfiguration() {
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -171,8 +180,10 @@ extension ServiceOptionView: ViewCodable{
 struct ServiceOptionViewControllerPreviews: PreviewProvider {
     static var previews: some View {
         UIViewControllerPreview {
-            return ServiceOptionViewController(view: ServiceOptionView(), viewModel: ServiceOptionViewModel())
+            return ServiceOptionViewController(
+                view: ServiceOptionView(),
+                viewModel: ServiceOptionViewModel()
+            )
         }
-        .previewDevice("iPhone SE (2nd generation)")
     }
 }

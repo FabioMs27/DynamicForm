@@ -18,7 +18,7 @@ enum Ui_Types: String {
     case textfield
 }
 //MARK:- UICollectionViewDelegate
-extension FormView: UICollectionViewDelegate{}
+extension FormView: UICollectionViewDelegate{ }
 //MARK:- UICollectionViewDataSource
 extension FormView: UICollectionViewDataSource{
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -36,16 +36,6 @@ extension FormView: UICollectionViewDataSource{
         setUpCell(&cell, field: field)
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let collectionReusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
-        guard
-            let header = collectionReusableView as? FormCollectionReusableView,
-            let result = self.result else { return collectionReusableView }
-        
-        header.headerLabel.text = result.screen_title
-        return header
     }
     
     /// Method that sets up cells according to the model.

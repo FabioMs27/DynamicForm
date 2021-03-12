@@ -29,16 +29,6 @@ class FormViewController: UIViewController {
         fatalError()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-    
     /// Method called when submit button is pressed. It validates all fields and update accordingly.
     /// - Parameter sender: The button that was pressed.
     @objc func submitForm(sender: UIButton){

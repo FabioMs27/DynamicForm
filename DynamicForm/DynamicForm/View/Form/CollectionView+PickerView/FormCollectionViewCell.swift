@@ -22,7 +22,6 @@ class FormCollectionViewCell: UICollectionViewCell {
     //MARK:- Interface
     lazy var inputTextField: UITextField = { [weak self] in
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
@@ -39,7 +38,6 @@ class FormCollectionViewCell: UICollectionViewCell {
     
     lazy var hintLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.numberOfLines = 0
         label.textColor = #colorLiteral(red: 0.06027474999, green: 0.4766826034, blue: 0.2427200377, alpha: 1)
@@ -48,7 +46,6 @@ class FormCollectionViewCell: UICollectionViewCell {
     
     lazy var isMandatoryLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.numberOfLines = 0
         label.text = "*"
@@ -59,6 +56,8 @@ class FormCollectionViewCell: UICollectionViewCell {
     //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        layoutMargins.left = 20
+        layoutMargins.right = 20
         setupViews()
     }
     
@@ -104,26 +103,17 @@ extension FormCollectionViewCell: UIPickerViewDataSource{
 //MARK:- View Code
 extension FormCollectionViewCell: ViewCodable {
     func setupHierarchyViews() {
-        addSubview(inputTextField)
-        addSubview(hintLabel)
-        addSubview(isMandatoryLabel)
+        let margins:[LayoutAnchor] = [.leading(layoutMargins.left), .trailing(-layoutMargins.right)]
+        addSubview(inputTextField, anchors: margins)
+        addSubview(hintLabel, anchors: margins)
+        addSubview(isMandatoryLabel, anchors: margins)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
             isMandatoryLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 16),
-            isMandatoryLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
-            isMandatoryLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20),
-            
             inputTextField.topAnchor.constraint(equalTo: isMandatoryLabel.bottomAnchor, constant: 8),
-            inputTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
-            inputTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20),
-            
             hintLabel.topAnchor.constraint(equalTo: inputTextField.bottomAnchor, constant: 8),
-            hintLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
-            hintLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20),
         ])
     }
-    
-    func setupAdditionalConfiguration() {}
 }
