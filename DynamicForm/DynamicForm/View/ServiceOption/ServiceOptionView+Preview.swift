@@ -19,7 +19,7 @@ final class ServiceOptionView: UIView{
     ]
     //MARK:- Interface
     lazy var backgroundView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: Metrics.Device.height/2))
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: Metrics.Device.width, height: Metrics.Device.height/2))
         view.backgroundColor = #colorLiteral(red: 0.4824108481, green: 0.7250191569, blue: 0.2658652067, alpha: 1)
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
@@ -30,7 +30,6 @@ final class ServiceOptionView: UIView{
     
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.text = "Welcome To"
         label.textColor = #colorLiteral(red: 0.06027474999, green: 0.4766826034, blue: 0.2427200377, alpha: 1)
@@ -41,7 +40,6 @@ final class ServiceOptionView: UIView{
     
     lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = #imageLiteral(resourceName: "logo")
         imageView.layer.cornerRadius = imageView.frame.height/2
         imageView.clipsToBounds = true
@@ -51,7 +49,6 @@ final class ServiceOptionView: UIView{
     
     lazy var optionTextField: UITextField = { [weak self] in
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
@@ -73,7 +70,6 @@ final class ServiceOptionView: UIView{
     
     lazy var errorLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.numberOfLines = 0
         label.textColor = .systemRed
@@ -83,7 +79,6 @@ final class ServiceOptionView: UIView{
     
     lazy var proccedButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Next", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -141,41 +136,31 @@ extension ServiceOptionView: UIPickerViewDataSource{
 //MARK:- View Code
 extension ServiceOptionView: ViewCodable{
     func setupHierarchyViews() {
+        let margin = Metrics.Margin.self
         addSubview(backgroundView)
-        backgroundView.addSubview(welcomeLabel)
-        backgroundView.addSubview(logoImageView)
-        addSubview(optionTextField)
-        addSubview(proccedButton)
-        addSubview(errorLabel)
+        backgroundView.addSubview(
+            welcomeLabel,
+            anchors: [.top(20), .leading(20), .trailing(0)]
+        )
+        backgroundView.addSubview(
+            logoImageView,
+            anchors: [.centerX(0), .centerY(0), .width(Metrics.Device.width * 0.8), .height(Metrics.Device.height * 0.8)]
+        )
+        addSubview(
+            optionTextField,
+            anchors: [.centerX(0), .centerY(0), .leading(margin.leading), .trailing(margin.trailing)]
+        )
+        addSubview(
+            proccedButton,
+            anchors: [.centerX(0), .bottom(-16), .leading(20), .trailing(-20)]
+        )
+        addSubview(
+            errorLabel,
+            anchors: [.centerX(0), .top(-16), .leading(0), .trailing(0)]
+        )
     }
     
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            logoImageView.centerXAnchor.constraint(equalTo: backgroundView.centerXAnchor),
-            logoImageView.centerYAnchor.constraint(equalTo: backgroundView.centerYAnchor),
-            logoImageView.widthAnchor.constraint(equalToConstant: Metrics.Device.width * 0.8),
-            logoImageView.heightAnchor.constraint(equalToConstant: Metrics.Device.height * 0.8),
-            
-            welcomeLabel.topAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.topAnchor, constant: 20),
-            welcomeLabel.leadingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.leadingAnchor, constant: 20),
-            welcomeLabel.trailingAnchor.constraint(equalTo: backgroundView.layoutMarginsGuide.trailingAnchor),
-            
-            optionTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            optionTextField.centerYAnchor.constraint(equalTo: centerYAnchor),
-            optionTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            optionTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            
-            errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            errorLabel.bottomAnchor.constraint(equalTo: proccedButton.topAnchor, constant: -16),
-            errorLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            errorLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            
-            proccedButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            proccedButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16),
-            proccedButton.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 20),
-            proccedButton.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -20)
-        ])
-    }
+    func setupConstraints() { }
     
     func setupAdditionalConfiguration() {
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
