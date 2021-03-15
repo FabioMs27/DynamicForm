@@ -20,39 +20,22 @@ extension FormView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? FormCollectionViewCell ?? FormCollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? FormCollectionViewCell else {
+            fatalError("Cell wasn't registered!")
+        }
         let field = fields[indexPath.item]
-        
-        setUpCell(&cell, field: field)
-        
-        return cell
-    }
-    
-    /// Method that sets up cells according to the model.
-    /// - Parameters:
-    ///   - cell: The custom cell with the textFields.
-    ///   - field: The model containing info about the cell.
-    func setUpCell(_ cell: inout FormCollectionViewCell, field: Fields) {
-        //Hint
         cell.hintLabel.text = "hint: \(field.hintText)"
-        //Place holder
-        let centeredParagraphStyle = NSMutableParagraphStyle()
-        centeredParagraphStyle.alignment = .center
-        let attributedPlaceholder = NSAttributedString(string: field.placeholder, attributes: [NSAttributedString.Key.paragraphStyle: centeredParagraphStyle])
-        cell.inputTextField.attributedPlaceholder = attributedPlaceholder
-        //Regex
+        cell.inputTextField.attributedPlaceholder = field.placeholder.atributedString
         cell.regex = field.regex
-        //Data Type
         if field.dataType == .int {
             cell.inputTextField.delegate = self
         }
-        //Is mandatory
         cell.isMandatory = field.isMandatory
-        //UI Type
         if field.type == .dropdown {
             cell.values = field.values
             cell.inputTextField.inputView = cell.optionPickerView
         }
+        return cell
     }
 }
 //MARK:- UITextFieldDelegate
