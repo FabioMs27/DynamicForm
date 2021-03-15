@@ -7,16 +7,6 @@
 
 import UIKit
 
-/// Enum containing possible data types from api
-enum DataTypes: String {
-    case int
-    case string
-}
-/// Enum containing the possible ui_types from api
-enum Ui_Types: String {
-    case dropdown
-    case textfield
-}
 //MARK:- UICollectionViewDelegate
 extension FormView: UICollectionViewDelegate { }
 //MARK:- UICollectionViewDataSource
@@ -59,7 +49,7 @@ extension FormView: UICollectionViewDataSource {
         //Is mandatory
         cell.isMandatory = field.isMandatory
         //UI Type
-        if field.type == .dropDown {
+        if field.type == .dropdown {
             cell.values = field.values
             cell.inputTextField.inputView = cell.optionPickerView
         }
