@@ -78,8 +78,8 @@ extension Resource {
     private func decode<T: Decodable>(data: Data) -> T? {
         let decoder = JSONDecoder()
         
-        let object = try? decoder.decode(T.self, from: data)
+        let object = try? decoder.decode(Wrapper<T>.self, from: data)
         
-        return object
+        return object?.result
     }
 }

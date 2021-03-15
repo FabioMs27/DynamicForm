@@ -20,8 +20,8 @@ enum UIType: String {
 }
 
 struct Form {
-    let screenTitle: String?
-    let fields: [Fields]?
+    let screenTitle: String
+    let fields: [Fields]
 }
 
 extension Form: Decodable {
@@ -71,7 +71,8 @@ extension Fields: Decodable {
         name = try container.decode(String.self, forKey: .name)
         placeholder = try container.decode(String.self, forKey: .placeholder)
         regex = try container.decode(String.self, forKey: .regex)
-        isMandatory = try container.decode(Bool.self, forKey: .isMandatory)
+        let isMandatoryString = try container.decode(String.self, forKey: .isMandatory)
+        isMandatory = (isMandatoryString as NSString).boolValue
         hintText = try container.decode(String.self, forKey: .hintText)
         
         let dataTypeContainer = try container.nestedContainer(keyedBy: CodingKeys.DataTypeKeys.self, forKey: .type)
@@ -89,5 +90,15 @@ extension Fields: Decodable {
             decodedValues.append(value)
         }
         values = decodedValues
+    }
+}
+
+struct Wrapper<T: Decodable> {
+    let result: T
+}
+
+extension Wrapper: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case result
     }
 }
