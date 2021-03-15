@@ -42,9 +42,9 @@ extension FormView: UICollectionViewDataSource {
     /// - Parameters:
     ///   - cell: The custom cell with the textFields.
     ///   - field: The model containing info about the cell.
-    func setUpCell(_ cell: inout FormCollectionViewCell, field: Field) {
+    func setUpCell(_ cell: inout FormCollectionViewCell, field: Fields) {
         //Hint
-        cell.hintLabel.text = "hint: \(field.hint_text)"
+        cell.hintLabel.text = "hint: \(field.hintText)"
         //Place holder
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
@@ -53,21 +53,15 @@ extension FormView: UICollectionViewDataSource {
         //Regex
         cell.regex = field.regex
         //Data Type
-        switch DataTypes(rawValue: field.type.data_type) {
-        case .int:
+        if field.dataType == .int {
             cell.inputTextField.delegate = self
-        case .string: break
-        case .none: break
         }
         //Is mandatory
-        cell.isMandatory = Bool(from:field.is_mandatory)
+        cell.isMandatory = field.isMandatory
         //UI Type
-        switch Ui_Types(rawValue: field.ui_type.type) {
-        case .dropdown:
-            cell.optionPickerView.values = field.ui_type.values.map{ value in (name: value.name, id: value.id) }
+        if field.type == .dropDown {
+            cell.values = field.values
             cell.inputTextField.inputView = cell.optionPickerView
-        case .textfield: break
-        case .none: break
         }
     }
 }
@@ -81,11 +75,5 @@ extension FormView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-}
-//MARK:- Bool
-extension Bool {
-    init(from: String) {
-        self = (from as NSString).boolValue
     }
 }

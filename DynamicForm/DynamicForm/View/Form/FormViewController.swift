@@ -68,7 +68,7 @@ class FormViewController: UIViewController {
             switch result {
             case .success(let form):
                 DispatchQueue.main.async {
-                    self?.formView.result = form.result
+                    self?.formView.form = form
                 }
             case .failure(let error):
                 self?.showAlert(title: error.localizedDescription)
