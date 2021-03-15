@@ -10,15 +10,15 @@ import SwiftUI
 
 final class FormView: UIView {
     //MARK:- Atributtes
-    var result: Results? {
+    var form: Form? {
         willSet{
             collectionView.reloadData()
-            headerLabel.text = newValue?.screen_title
+            headerLabel.text = newValue?.screenTitle
         }
     }
     
-    var fields: [Field] {
-        result?.fields ?? []
+    var fields: [Fields] {
+        form?.fields ?? []
     }
     
     //MARK:- Interface

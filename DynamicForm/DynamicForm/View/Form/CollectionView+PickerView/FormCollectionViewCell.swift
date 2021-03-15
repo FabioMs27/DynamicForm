@@ -19,6 +19,7 @@ class FormCollectionViewCell: UICollectionViewCell {
     //MARK:- Atributtes
     var isMandatory: Bool = false
     var regex: String = ""
+    var values = [String]()
     //MARK:- Interface
     lazy var inputTextField: UITextField = { [weak self] in
         let textField = UITextField()
@@ -29,8 +30,8 @@ class FormCollectionViewCell: UICollectionViewCell {
         return textField
     }()
     
-    lazy var optionPickerView: FormPickerView = { [weak self] in
-        let pickerView = FormPickerView()
+    lazy var optionPickerView: UIPickerView = { [weak self] in
+        let pickerView = UIPickerView()
         pickerView.delegate = self
         pickerView.dataSource = self
         return pickerView
@@ -83,18 +84,15 @@ extension FormCollectionViewCell: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let customPickerView = pickerView as? FormPickerView else { return 0 }
-        return customPickerView.values.count
+        return values.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let customPickerView = pickerView as? FormPickerView else { return "" }
-        return customPickerView.values[row].name
+        return values[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let customPickerView = pickerView as? FormPickerView else { return }
-        let text = customPickerView.values[row].name
+        let text = values[row]
         inputTextField.text = text
         inputTextField.endEditing(true)
     }

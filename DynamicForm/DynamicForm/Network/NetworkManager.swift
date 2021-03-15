@@ -8,7 +8,7 @@
 import Foundation
 
 /// Network manager atributes. It contains the url path and the keys required to fetch from it.
-struct Resource<T: Decodable>{
+struct Resource<T: Decodable> {
     let path: URL?
     let key: String?
     let header: String?
@@ -20,7 +20,7 @@ struct Resource<T: Decodable>{
     }
 }
 
-extension Resource{
+extension Resource {
     /// Method that request to the api and returns either a model or error.
     /// - Parameter completion: Closure containing either the model after parsing or an error based on the request.
     /// - Returns: Void
@@ -78,8 +78,8 @@ extension Resource{
     private func decode<T: Decodable>(data: Data) -> T? {
         let decoder = JSONDecoder()
         
-        guard let object = try? decoder.decode(T.self, from: data) else { return nil }
+        let object = try? decoder.decode(Wrapper<T>.self, from: data)
         
-        return object
+        return object?.result
     }
 }

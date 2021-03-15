@@ -7,43 +7,98 @@
 
 import Foundation
 
-/// Api model.
-struct Form: Codable{
-    let status: String
-    let message: String
-    let result: Results
+enum DataType: String {
+    case int
+    case string
+    case none
 }
-/// Api model.
-struct Results: Codable{
-    let number_of_fields: Int
-    let screen_title: String
-    let operator_name: String
-    let service_id: String
-    let fields: [Field]
+
+enum UIType: String {
+    case dropDown
+    case textField
+    case none
 }
-/// Api model.
-struct Field: Codable{
+
+struct Form {
+    let screenTitle: String
+    let fields: [Fields]
+}
+
+extension Form: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case screenTitle = "screen_title"
+        case fields
+    }
+}
+
+struct Fields {
     let name: String
     let placeholder: String
     let regex: String
-    let type: Type
-    let ui_type: UIType
-    let is_mandatory: String
-    let hint_text: String
+    let dataType: DataType
+    let isMandatory: Bool
+    let hintText: String
+    let type: UIType
+    let values: [String]
 }
-/// Api model.
-struct Type : Codable{
-    let data_type: String
-    let is_array: String
-    let array_name: String
+
+extension Fields: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case placeholder
+        case regex
+        case isMandatory = "is_mandatory"
+        case hintText    = "hint_text"
+        case type
+        case uiType      = "ui_type"
+        
+        enum DataTypeKeys: String, CodingKey {
+            case dataType = "data_type"
+        }
+        
+        enum UITypeKeys: String, CodingKey {
+            case type
+            case values
+            
+            enum ValuesKeys: String, CodingKey {
+                case name
+            }
+        }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        placeholder = try container.decode(String.self, forKey: .placeholder)
+        regex = try container.decode(String.self, forKey: .regex)
+        let isMandatoryString = try container.decode(String.self, forKey: .isMandatory)
+        isMandatory = (isMandatoryString as NSString).boolValue
+        hintText = try container.decode(String.self, forKey: .hintText)
+        
+        let dataTypeContainer = try container.nestedContainer(keyedBy: CodingKeys.DataTypeKeys.self, forKey: .type)
+        let typeString = try dataTypeContainer.decode(String.self, forKey: .dataType)
+        dataType = DataType(rawValue: typeString) ?? .none
+        
+        let uiTypeContainer = try container.nestedContainer(keyedBy: CodingKeys.UITypeKeys.self, forKey: .uiType)
+        let uiType = try uiTypeContainer.decode(String.self, forKey: .type)
+        type = UIType(rawValue: uiType) ?? .none
+        var valuesContainer = try uiTypeContainer.nestedUnkeyedContainer(forKey: .values)
+        var decodedValues = [String]()
+        while !valuesContainer.isAtEnd {
+            let valueContainer = try valuesContainer.nestedContainer(keyedBy: CodingKeys.UITypeKeys.ValuesKeys.self)
+            let value = try valueContainer.decode(String.self, forKey: .name)
+            decodedValues.append(value)
+        }
+        values = decodedValues
+    }
 }
-/// Api model.
-struct UIType: Codable{
-    let type: String
-    let values: [Value]
+
+struct Wrapper<T: Decodable> {
+    let result: T
 }
-/// Api model.
-struct Value: Codable{
-    let name: String
-    let id: String
+
+extension Wrapper: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case result
+    }
 }
