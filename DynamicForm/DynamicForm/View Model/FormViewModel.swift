@@ -9,13 +9,14 @@ import Foundation
 
 /// Layer related to the validation and fetch part of the form feature.
 class FormViewModel{
-    //MARK:- Atributtes
+    var formPublisher = Observer<Form>()
+    var errorPublisher = Observer<Error>()
     let option: Int
-    //MARK:- Constructor
+    
     init(option: Int) {
         self.option = option
     }
-    //MARK:- Methods
+    
     /// Method that validates each form field and returns an error in calse it's invalid.
     /// - Parameters:
     ///   - value: A string containing the value retrieved from the textField.
@@ -34,16 +35,18 @@ class FormViewModel{
     
     /// Method which calls the api and return a completion containing either the model or an error.
     /// - Parameter completion: A closure containing either the method or an error.
-    func fetchForm(completion: @escaping (Result<Form, NetworkError>) -> Void){
+    func fetchForm() {
         let url = URL(string: "https://api-staging.bankaks.com/task/\(option)")
         let apiRequest = Resource<Form>(path: url)
         
-        apiRequest.request { result in
-            switch result{
-            case .success(let form):
-                completion(.success(form))
-            case .failure(let error):
-                completion(.failure(error))
+        apiRequest.request { [weak self] result in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let form):
+                    self?.formPublisher.value = form
+                case .failure(let error):
+                    self?.errorPublisher.value = error
+                }
             }
         }
     }
