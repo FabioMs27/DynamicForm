@@ -14,8 +14,8 @@ enum DataType: String {
 }
 
 enum UIType: String {
-    case dropDown
-    case textField
+    case dropdown
+    case textfield
     case none
 }
 
