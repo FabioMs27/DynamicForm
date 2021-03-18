@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79588F2D260287B300C0D839 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F2C260287B300C0D839 /* URLSession.swift */; };
+		79588F3226028A2200C0D839 /* MockedSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F3126028A2200C0D839 /* MockedSession.swift */; };
 		79A1EE2B25FA355B0001C64B /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1EE2A25FA355B0001C64B /* UIViewControllerPreview.swift */; };
 		79A1EE5425FA3C060001C64B /* LayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1EE5325FA3C060001C64B /* LayoutAnchor.swift */; };
 		79A1EE7425FF589A0001C64B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A1EE7325FF589A0001C64B /* String.swift */; };
@@ -24,7 +26,7 @@
 		79A6929825755D1C002D5268 /* ServiceOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */; };
 		79A6929D25755D75002D5268 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6929C25755D74002D5268 /* Coordinator.swift */; };
 		79A692A225755D7F002D5268 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692A125755D7F002D5268 /* MainCoordinator.swift */; };
-		79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692AF25756CDA002D5268 /* NetworkManager.swift */; };
+		79A692B025756CDB002D5268 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692AF25756CDA002D5268 /* NetworkRequest.swift */; };
 		79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692B725756D8E002D5268 /* ViewCodable.swift */; };
 		79A692C0257592A2002D5268 /* ServiceOptionView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A692BF257592A1002D5268 /* ServiceOptionView+Preview.swift */; };
 		79A6931425768D43002D5268 /* FormView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6931325768D43002D5268 /* FormView+Preview.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79588F2C260287B300C0D839 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		79588F3126028A2200C0D839 /* MockedSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSession.swift; sourceTree = "<group>"; };
 		79A1EE2A25FA355B0001C64B /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		79A1EE5325FA3C060001C64B /* LayoutAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAnchor.swift; sourceTree = "<group>"; };
 		79A1EE7325FF589A0001C64B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -78,7 +82,7 @@
 		79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOptionViewModel.swift; sourceTree = "<group>"; };
 		79A6929C25755D74002D5268 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		79A692A125755D7F002D5268 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		79A692AF25756CDA002D5268 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		79A692AF25756CDA002D5268 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		79A692B725756D8E002D5268 /* ViewCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodable.swift; sourceTree = "<group>"; };
 		79A692BF257592A1002D5268 /* ServiceOptionView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceOptionView+Preview.swift"; sourceTree = "<group>"; };
 		79A6931325768D43002D5268 /* FormView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormView+Preview.swift"; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				79A1EE5325FA3C060001C64B /* LayoutAnchor.swift */,
 				79A1EE7325FF589A0001C64B /* String.swift */,
 				79A1EE7825FFAE330001C64B /* Observer.swift */,
+				79588F2C260287B300C0D839 /* URLSession.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -225,7 +230,8 @@
 		79A6927D25755216002D5268 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				79A692AF25756CDA002D5268 /* NetworkManager.swift */,
+				79A692AF25756CDA002D5268 /* NetworkRequest.swift */,
+				79588F3126028A2200C0D839 /* MockedSession.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -416,12 +422,14 @@
 				79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */,
 				79F96E7925792CF500F6B617 /* Metrics.swift in Sources */,
 				79A6928625755CC5002D5268 /* FormViewModel.swift in Sources */,
+				79588F3226028A2200C0D839 /* MockedSession.swift in Sources */,
 				79A692A225755D7F002D5268 /* MainCoordinator.swift in Sources */,
-				79A692B025756CDB002D5268 /* NetworkManager.swift in Sources */,
+				79A692B025756CDB002D5268 /* NetworkRequest.swift in Sources */,
 				79A6926E25743340002D5268 /* Form.swift in Sources */,
 				79A6929325755D00002D5268 /* ServiceOptionViewController.swift in Sources */,
 				79A692C0257592A2002D5268 /* ServiceOptionView+Preview.swift in Sources */,
 				79A693202577047C002D5268 /* NetworkError.swift in Sources */,
+				79588F2D260287B300C0D839 /* URLSession.swift in Sources */,
 				79A6931B2576F867002D5268 /* ValidationError.swift in Sources */,
 				79A6933C25772A73002D5268 /* FormCollectionViewCell.swift in Sources */,
 				79A6929825755D1C002D5268 /* ServiceOptionViewModel.swift in Sources */,
