@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NetworkRequest: class {
-    var session: URLSession { get }
+    var session: URLSessionProtocol { get }
     func request<ModelType: Decodable>(urlPath: String, modelType: ModelType.Type, completionHandler: @escaping (Result<ModelType, NetworkError>) -> Void)
     func decode<ModelType: Decodable>(_ data: Data) -> ModelType?
 }
@@ -22,33 +22,29 @@ extension NetworkRequest {
             completionHandler(.failure(NetworkError.invalidURL))
             return
         }
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            guard let self = self else { return }
-            self.session.dataTask(with: url) { data, response, error in
-                DispatchQueue.main.async {
-                    guard error == nil else {
-                        completionHandler(.failure(.connectionError))
-                        return
-                    }
-                    guard response == nil else {
-                        completionHandler(.failure(.invalidResponseType))
-                        return
-                    }
-                    guard let data = data,
-                          let object: ModelType = self.decode(data) else {
-                        completionHandler(.failure(.objectNotDecoded))
-                        return
-                    }
-                    completionHandler(.success(object))
-                }
-            }.resume()
-        }
+        session.dataTaskWith(url: url) { [weak self] data, response, error in
+            guard error == nil else {
+                completionHandler(.failure(.connectionError))
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                completionHandler(.failure(.invalidResponseType))
+                return
+            }
+            guard let data = data,
+                  let object: ModelType = self?.decode(data) else {
+                completionHandler(.failure(.objectNotDecoded))
+                return
+            }
+            completionHandler(.success(object))
+        }.resume()
     }
 }
 
 class APIRequest: NetworkRequest {
-    var session: URLSession
-    init(session: URLSession = URLSession.shared) {
+    var session: URLSessionProtocol
+    init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
     }
     

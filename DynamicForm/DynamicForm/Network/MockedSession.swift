@@ -9,9 +9,9 @@ import Foundation
 
 class MockedSession {
     let dataTask = MockedSessionTask()
-    var data = Data()
-    var error = NetworkError.invalidURL
-    var response = URLResponse()
+    var data: Data?
+    var error: NetworkError?
+    var response: HTTPURLResponse?
 }
 
 extension MockedSession: URLSessionProtocol {
@@ -22,5 +22,5 @@ extension MockedSession: URLSessionProtocol {
 }
 
 class MockedSessionTask: URLSessionTaskProtocol {
-    func resume() {}
+    func resume() { }
 }

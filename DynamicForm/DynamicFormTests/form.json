@@ -1,0 +1,56 @@
+
+{
+    "status":"true",
+    "message":"Success",
+    "result":
+    {
+        "number_of_fields":2,
+        "screen_title":"Electricity Bill",
+        "operator_name":"",
+        "service_id":"4",
+        "fields":
+        [
+            {
+                "name":"sc_no",
+                "placeholder":"SC Number (e.g 309.11.012A)",
+                "regex":"",
+                "type":
+                {
+                    "data_type":"string",
+                    "is_array":"false",
+                    "array_name":""
+                    
+                },
+                "is_mandatory":"true",
+                "hint_text":"e.g.(139.22.020)",
+                "ui_type":
+                {
+                    "type":"textfield",
+                    "values":[]
+                    
+                }
+                
+            },
+            {
+                "name":"customer_id",
+                "placeholder":"Consumer ID (e.g.12166)",
+                "regex":"",
+                "type":
+                {
+                    "data_type":"int",
+                    "is_array":"false",
+                    "array_name":""
+                    
+                },
+                "is_mandatory":"true",
+                "hint_text":"e.g.(12166)",
+                "ui_type":
+                {
+                    "type":"textfield",
+                    "values":[]
+                }
+                
+            }
+        ]
+    }
+}

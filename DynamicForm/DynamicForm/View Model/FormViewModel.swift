@@ -12,7 +12,7 @@ class FormViewModel{
     var formPublisher = Observer<Form>()
     var errorPublisher = Observer<Error>()
     let option: Int
-    let networkRequest: NetworkRequest
+    private let networkRequest: NetworkRequest
     
     init(option: Int, networkRequest: NetworkRequest = APIRequest()) {
         self.option = option
@@ -39,13 +39,16 @@ class FormViewModel{
     /// - Parameter completion: A closure containing either the method or an error.
     func fetchForm() {
         let urlPath = "https://api-staging.bankaks.com/task/\(option)"
-        
-        networkRequest.request(urlPath: urlPath, modelType: Form.self) { [weak self] result in
-            switch result{
-            case .success(let form):
-                self?.formPublisher.value = form
-            case .failure(let error):
-                self?.errorPublisher.value = error
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.networkRequest.request(urlPath: urlPath, modelType: Form.self) { result in
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success(let form):
+                        self?.formPublisher.value = form
+                    case .failure(let error):
+                        self?.errorPublisher.value = error
+                    }
+                }
             }
         }
     }
