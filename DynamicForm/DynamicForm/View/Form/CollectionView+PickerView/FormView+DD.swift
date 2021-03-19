@@ -29,6 +29,7 @@ extension FormView: UICollectionViewDataSource {
         cell.regex = field.regex
         if field.dataType == .int {
             cell.inputTextField.delegate = self
+            cell.inputTextField.keyboardType = .decimalPad
         }
         cell.isMandatory = field.isMandatory
         if field.type == .dropdown {

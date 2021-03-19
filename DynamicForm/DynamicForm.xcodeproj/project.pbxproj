@@ -124,6 +124,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79588F61260490FD00C0D839 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				79588F2C260287B300C0D839 /* URLSession.swift */,
+				79A1EE7325FF589A0001C64B /* String.swift */,
+				79F96E6A25789B5900F6B617 /* UIView.swift */,
+				79A6932425770D70002D5268 /* UIViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		79A6922825741FA8002D5268 = {
 			isa = PBXGroup;
 			children = (
@@ -209,17 +220,14 @@
 		79A6927B2575501F002D5268 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				79588F61260490FD00C0D839 /* Extensions */,
 				79A692822575532E002D5268 /* Error Handling */,
 				79A6928125755322002D5268 /* Coordinator */,
 				79A692B725756D8E002D5268 /* ViewCodable.swift */,
-				79A6932425770D70002D5268 /* UIViewController.swift */,
-				79F96E6A25789B5900F6B617 /* UIView.swift */,
 				79A1EE2A25FA355B0001C64B /* UIViewControllerPreview.swift */,
 				79F96E7825792CF500F6B617 /* Metrics.swift */,
 				79A1EE5325FA3C060001C64B /* LayoutAnchor.swift */,
-				79A1EE7325FF589A0001C64B /* String.swift */,
 				79A1EE7825FFAE330001C64B /* Observer.swift */,
-				79588F2C260287B300C0D839 /* URLSession.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
