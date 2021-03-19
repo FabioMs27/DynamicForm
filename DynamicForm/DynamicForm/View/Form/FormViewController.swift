@@ -22,6 +22,7 @@ class FormViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.view = formView
         formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
+        bindViewModel()
         fetchForm()
     }
     
@@ -64,16 +65,18 @@ class FormViewController: UIViewController {
     func fetchForm() {
         hideActivityIndicator()
         showActivityIndicator()
-        formViewModel.fetchForm() { [weak self] result in
-            switch result {
-            case .success(let form):
-                DispatchQueue.main.async {
-                    self?.formView.form = form
-                }
-            case .failure(let error):
-                self?.showAlert(title: error.localizedDescription)
-            }
+        formViewModel.fetchForm()
+    }
+    
+    func bindViewModel() {
+        formViewModel.errorPublisher.bind { [weak self] error in
             self?.hideActivityIndicator()
+            self?.showAlert(title: error?.localizedDescription)
+        }
+        
+        formViewModel.formPublisher.bind { [weak self] form in
+            self?.hideActivityIndicator()
+            self?.formView.form = form
         }
     }
     
