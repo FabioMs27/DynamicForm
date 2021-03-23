@@ -11,23 +11,23 @@ class FormViewController: UIViewController {
     
     let formView: FormView
     let formViewModel: FormViewModel
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     init(formView: FormView, viewModel: FormViewModel) {
         self.formView = formView
         self.formViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view = formView
         formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
         bindViewModel()
         fetchForm()
+        hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    override func loadView() {
+        view = formView
     }
     
     /// Method called when submit button is pressed. It validates all fields and update accordingly.
@@ -95,10 +95,8 @@ class FormViewController: UIViewController {
         alert.addAction(tryAgainAction)
         alert.addAction(cancelAction)
         
-        DispatchQueue.main.async { [weak self] in
-            self?.present(alert, animated: true)
+            present(alert, animated: true)
         }
-    }
     
     /// Method that presents an alert. It has an ok option to continue the app.
     /// - Parameter title: A string to be presented on the alert view.
@@ -109,8 +107,6 @@ class FormViewController: UIViewController {
         
         alert.addAction(okAction)
         
-        DispatchQueue.main.async {
-            self.present(alert, animated: true)
-        }
+        present(alert, animated: true)
     }
 }

@@ -22,13 +22,18 @@ class ServiceOptionViewController: UIViewController {
         self.serviceOptionView = view
         self.serviceOptionViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view  = view
         serviceOptionView.proccedButton.addTarget(self, action: #selector(goToFormView), for: .touchUpInside)
+        hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    override func loadView() {
+        view = serviceOptionView
+    }
+    
     //MARK:- Methods
     /// Method called when button is pressed. It validas the textFields and either presents an error or goes to next screen.
     @objc func goToFormView() {
