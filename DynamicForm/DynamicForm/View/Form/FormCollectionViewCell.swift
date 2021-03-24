@@ -66,6 +66,14 @@ class FormCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
     }
     
+    func showInvalid(text: String) {
+        UIView.animate(withDuration: 0.25) { [unowned self] in
+            isMandatoryLabel.text = text
+            isMandatoryLabel.alpha = 1
+        }
+        inputTextField.shakeAnimation()
+    }
+    
 }
 //MARK:- UITextFieldDelegate
 extension FormCollectionViewCell: UITextFieldDelegate {

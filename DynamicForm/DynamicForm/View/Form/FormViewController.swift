@@ -11,15 +11,18 @@ class FormViewController: UIViewController {
     
     let formView: FormView
     let formViewModel: FormViewModel
+    let dataSource: FormDataSource
     
-    init(formView: FormView, viewModel: FormViewModel) {
+    init(formView: FormView, viewModel: FormViewModel, dataSource: FormDataSource) {
         self.formView = formView
         self.formViewModel = viewModel
+        self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
         formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
         bindViewModel()
         fetchForm()
         hideKeyboardWhenTappedAround()
+        formView.collectionView.dataSource = dataSource
     }
     
     required init?(coder: NSCoder) {
@@ -34,31 +37,30 @@ class FormViewController: UIViewController {
     /// - Parameter sender: The button that was pressed.
     @objc func submitForm(sender: UIButton){
         var isValid = true
-        for cell in formView.collectionView.visibleCells{
-            guard let cell =  cell as? FormCollectionViewCell else { return }
+        for view in formView.collectionView.subviews {
+            guard let cell = view as? FormCollectionViewCell else { return }
             do {
-                try formViewModel.isMandatoryValidator(value: cell.inputTextField.text, pattern: cell.regex, isMandatory: cell.isMandatory)
+                if cell.isMandatory {
+                    try formViewModel.validateInputs(
+                        value: cell.inputTextField.text,
+                        pattern: cell.regex
+                    )
+                }
                 cell.isMandatoryLabel.textColor = .clear
             } catch {
-                UIView.animate(withDuration: 0.25) {
-                    cell.isMandatoryLabel.text = error.localizedDescription
-                    cell.isMandatoryLabel.alpha = 1
-                }
-                cell.inputTextField.shakeAnimation()
+                cell.showInvalid(text: error.localizedDescription)
                 isValid = false
             }
         }
-        if isValid {
-            UIView.animate(withDuration: 1) {
-                sender.backgroundColor = .green
-                sender.setImage(.checkmark, for: .normal)
-            }
-            showOkAlert(title: "You have completed the Assessment")
+        isValid ? completeAssessment() : giveInvalidFeedback()
+    }
+    
+    private func completeAssessment() {
+        UIView.animate(withDuration: 1) { [unowned self] in
+            formView.submitButton.backgroundColor = .green
+            formView.submitButton.setImage(.checkmark, for: .normal)
         }
-        else {
-            let generator = UIImpactFeedbackGenerator(style: .heavy)
-            generator.impactOccurred()
-        }
+        showOkAlert(title: "You have completed the Assessment")
     }
     
     /// Method that fetchs from api and uptade view accordingly. It sets up a loading screen while fetching data.
@@ -75,8 +77,10 @@ class FormViewController: UIViewController {
         }
         
         formViewModel.formPublisher.bind { [weak self] form in
-            self?.hideActivityIndicator()
-            self?.formView.form = form
+            guard let self = self else { return }
+            self.hideActivityIndicator()
+            self.dataSource.fields = form?.fields ?? []
+            self.formView.collectionView.reloadData()
         }
     }
     
@@ -94,19 +98,6 @@ class FormViewController: UIViewController {
         
         alert.addAction(tryAgainAction)
         alert.addAction(cancelAction)
-        
-            present(alert, animated: true)
-        }
-    
-    /// Method that presents an alert. It has an ok option to continue the app.
-    /// - Parameter title: A string to be presented on the alert view.
-    func showOkAlert(title: String?) {
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        
-        alert.addAction(okAction)
-        
         present(alert, animated: true)
     }
 }

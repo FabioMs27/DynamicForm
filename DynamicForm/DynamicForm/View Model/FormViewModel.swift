@@ -25,9 +25,9 @@ class FormViewModel{
     ///   - pattern: The regex related pattern.
     ///   - isMandatory: A boolean checking if a textField is mandatory.
     /// - Throws: An error discription to why the validation failed.
-    func isMandatoryValidator(value: String?, pattern: String, isMandatory: Bool) throws {
+    func validateInputs(value: String?, pattern: String) throws {
         let value = value ?? ""
-        if value.isEmpty, isMandatory { throw ValidationError.inputIsEmpty }
+        if value.isEmpty { throw ValidationError.inputIsEmpty }
         if pattern.isEmpty { return }
         guard let regex = try? NSRegularExpression(pattern: pattern) else {
             throw ValidationError.invalidInput

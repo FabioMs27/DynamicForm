@@ -58,4 +58,21 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    func giveInvalidFeedback() {
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+    }
+    
+    /// Method that presents an alert. It has an ok option to continue the app.
+    /// - Parameter title: A string to be presented on the alert view.
+    func showOkAlert(title: String?) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        
+        alert.addAction(okAction)
+        
+        present(alert, animated: true)
+    }
 }

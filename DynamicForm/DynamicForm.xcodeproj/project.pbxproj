@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79476170260B7D3C0044F1D0 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */; };
+		7947617D260B7E1B0044F1D0 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947617C260B7E1B0044F1D0 /* FormDataSource.swift */; };
 		79588F2D260287B300C0D839 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F2C260287B300C0D839 /* URLSession.swift */; };
 		79588F3226028A2200C0D839 /* MockedSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F3126028A2200C0D839 /* MockedSession.swift */; };
 		79588F3D260392F100C0D839 /* form.json in Resources */ = {isa = PBXBuildFile; fileRef = 79588F3C260392F100C0D839 /* form.json */; };
@@ -36,7 +38,6 @@
 		79A693202577047C002D5268 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6931F2577047B002D5268 /* NetworkError.swift */; };
 		79A6932525770D70002D5268 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6932425770D70002D5268 /* UIViewController.swift */; };
 		79A6933C25772A73002D5268 /* FormCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */; };
-		79A6934625772AA1002D5268 /* FormView+DD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6934525772AA1002D5268 /* FormView+DD.swift */; };
 		79F96E6B25789B5900F6B617 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F96E6A25789B5900F6B617 /* UIView.swift */; };
 		79F96E7925792CF500F6B617 /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F96E7825792CF500F6B617 /* Metrics.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
+		7947617C260B7E1B0044F1D0 /* FormDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
 		79588F2C260287B300C0D839 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		79588F3126028A2200C0D839 /* MockedSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSession.swift; sourceTree = "<group>"; };
 		79588F3C260392F100C0D839 /* form.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = form.json; sourceTree = "<group>"; };
@@ -94,7 +97,6 @@
 		79A6931F2577047B002D5268 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		79A6932425770D70002D5268 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewCell.swift; sourceTree = "<group>"; };
-		79A6934525772AA1002D5268 /* FormView+DD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormView+DD.swift"; sourceTree = "<group>"; };
 		79F96E6A25789B5900F6B617 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		79F96E7825792CF500F6B617 /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +126,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7947616E260B7D040044F1D0 /* UIDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */,
+			);
+			path = UIDelegates;
+			sourceTree = "<group>";
+		};
 		79588F61260490FD00C0D839 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +204,7 @@
 		79A6927825754FFA002D5268 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7947616E260B7D040044F1D0 /* UIDelegates */,
 				79A6928425755AB0002D5268 /* Form */,
 				79A6928325755AA3002D5268 /* ServiceOption */,
 			);
@@ -213,6 +224,7 @@
 			children = (
 				79A6928525755CC5002D5268 /* FormViewModel.swift */,
 				79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */,
+				7947617C260B7E1B0044F1D0 /* FormDataSource.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -280,20 +292,11 @@
 		79A6928425755AB0002D5268 /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				79A6933225772A13002D5268 /* CollectionView+PickerView */,
+				79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */,
 				79A6928D25755CEB002D5268 /* FormViewController.swift */,
 				79A6931325768D43002D5268 /* FormView+Preview.swift */,
 			);
 			path = Form;
-			sourceTree = "<group>";
-		};
-		79A6933225772A13002D5268 /* CollectionView+PickerView */ = {
-			isa = PBXGroup;
-			children = (
-				79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */,
-				79A6934525772AA1002D5268 /* FormView+DD.swift */,
-			);
-			path = "CollectionView+PickerView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -427,13 +430,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79A6934625772AA1002D5268 /* FormView+DD.swift in Sources */,
 				79A1EE7925FFAE330001C64B /* Observer.swift in Sources */,
 				79A6931425768D43002D5268 /* FormView+Preview.swift in Sources */,
 				79A1EE7425FF589A0001C64B /* String.swift in Sources */,
+				79476170260B7D3C0044F1D0 /* TextFieldDelegate.swift in Sources */,
 				79F96E6B25789B5900F6B617 /* UIView.swift in Sources */,
 				79A1EE5425FA3C060001C64B /* LayoutAnchor.swift in Sources */,
 				79A6928E25755CEB002D5268 /* FormViewController.swift in Sources */,
+				7947617D260B7E1B0044F1D0 /* FormDataSource.swift in Sources */,
 				79A1EE2B25FA355B0001C64B /* UIViewControllerPreview.swift in Sources */,
 				79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */,
 				79F96E7925792CF500F6B617 /* Metrics.swift in Sources */,

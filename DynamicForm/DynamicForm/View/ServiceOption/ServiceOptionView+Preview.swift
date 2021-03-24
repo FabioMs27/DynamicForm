@@ -104,6 +104,14 @@ final class ServiceOptionView: UIView {
         super.init(coder: coder)
     }
     
+    func showInvalid(text: String) {
+        UIView.animate(withDuration: 0.25) { [unowned self] in
+            errorLabel.text = text
+            errorLabel.alpha = 1
+        }
+        optionTextField.shakeAnimation()
+    }
+    
 }
 //MARK:- UITextFieldDelegate
 extension ServiceOptionView: UITextFieldDelegate {

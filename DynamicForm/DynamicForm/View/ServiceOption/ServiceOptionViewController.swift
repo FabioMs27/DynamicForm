@@ -43,13 +43,8 @@ class ServiceOptionViewController: UIViewController {
             coordinator?.navigateToFormViewController(option: option)
             serviceOptionView.errorLabel.alpha = 0
         } catch {
-            UIView.animate(withDuration: 0.25) { [weak self] in
-                self?.serviceOptionView.errorLabel.text = error.localizedDescription
-                self?.serviceOptionView.errorLabel.alpha = 1
-            }
-            serviceOptionView.optionTextField.shakeAnimation()
-            let generator = UIImpactFeedbackGenerator(style: .heavy)
-            generator.impactOccurred()
+            serviceOptionView.showInvalid(text: error.localizedDescription)
+            giveInvalidFeedback()
         }
     }
 
