@@ -8,15 +8,14 @@
 import Foundation
 
 /// Layer related to the validation and fetch part of the form feature.
-class FormViewModel{
-    var formPublisher = Observer<Form>()
-    var errorPublisher = Observer<Error>()
-    let option: Int
-    private let networkRequest: NetworkRequest
+class FormViewModel {
+    private(set) var formPublisher = Observable<Form>()
+    private(set) var errorPublisher = Observable<Error>()
+    private let option: Int
+    private var networkRequest: AnyObject?
     
-    init(option: Int, networkRequest: NetworkRequest = APIRequest()) {
+    init(option: Int) {
         self.option = option
-        self.networkRequest = networkRequest
     }
     
     /// Method that validates each form field and returns an error in calse it's invalid.
@@ -38,9 +37,12 @@ class FormViewModel{
     /// Method which calls the api and return a completion containing either the model or an error.
     /// - Parameter completion: A closure containing either the method or an error.
     func fetchForm() {
-        let urlPath = "https://api-staging.bankaks.com/task/\(option)"
+        let resource = FormResource(option: option)
+        let request = APIRequest(resource: resource)
+        networkRequest = request
         DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.networkRequest.request(urlPath: urlPath, modelType: Form.self) { result in
+            guard let self = self else { return }
+            request.request { [weak self] result in
                 DispatchQueue.main.async {
                     switch result{
                     case .success(let form):
@@ -54,7 +56,7 @@ class FormViewModel{
     }
 }
 //MARK:- NSRegularExpression
-extension NSRegularExpression {
+private extension NSRegularExpression {
     /// Method that checks if a string value matches with the regex.
     /// - Parameter string: The string value which will be checked
     /// - Returns: A boolean containing it's validation.

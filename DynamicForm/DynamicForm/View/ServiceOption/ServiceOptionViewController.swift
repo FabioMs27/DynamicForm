@@ -16,13 +16,17 @@ class ServiceOptionViewController: UIViewController {
     
     let serviceOptionView: ServiceOptionView
     let serviceOptionViewModel: ServiceOptionViewModel
-    var coordinator: ServiceOptionViewControllerCoordinator?
+    weak var coordinator: ServiceOptionViewControllerCoordinator?
     
     init(view: ServiceOptionView, viewModel: ServiceOptionViewModel) {
         self.serviceOptionView = view
         self.serviceOptionViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        serviceOptionView.proccedButton.addTarget(self, action: #selector(goToFormView), for: .touchUpInside)
+        serviceOptionView.proccedButton.addAction(
+            UIAction { [goToFormView] _ in
+                goToFormView()
+            },
+            for: .touchUpInside)
         hideKeyboardWhenTappedAround()
     }
     
@@ -36,7 +40,7 @@ class ServiceOptionViewController: UIViewController {
     
     //MARK:- Methods
     /// Method called when button is pressed. It validas the textFields and either presents an error or goes to next screen.
-    @objc func goToFormView() {
+    func goToFormView() {
         do {
             let value = serviceOptionView.optionTextField.text
             let option = try serviceOptionViewModel.inputValidator(value: value)

@@ -68,11 +68,8 @@ extension UIViewController {
     /// - Parameter title: A string to be presented on the alert view.
     func showOkAlert(title: String?) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        
         let okAction = UIAlertAction(title: "OK", style: .default)
-        
         alert.addAction(okAction)
-        
         present(alert, animated: true)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Observer<Value> {
+final class Observable<Value> {
     typealias Listener = (Value?) -> Void
     
     private var listener: Listener?

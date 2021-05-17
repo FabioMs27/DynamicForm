@@ -11,13 +11,9 @@ import SwiftUI
 
 ///Custom view with the service option interface
 final class ServiceOptionView: UIView {
-    //MARK:- Atributtes
-    var options = [
-        "1",
-        "2",
-        "3"
-    ]
-    //MARK:- Interface
+    private let dropDownDataSource = DropDownDataSource()
+    private let options = (1...3).map { "Option \($0)" }
+    
     lazy var backgroundView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Metrics.Device.width, height: Metrics.Device.height/2))
         view.backgroundColor = #colorLiteral(red: 0.4824108481, green: 0.7250191569, blue: 0.2658652067, alpha: 1)
@@ -66,8 +62,9 @@ final class ServiceOptionView: UIView {
     
     lazy var optionPickerView: UIPickerView = { [weak self] in
         let pickerView = UIPickerView()
+        dropDownDataSource.update(values: options)
         pickerView.delegate = self
-        pickerView.dataSource = self
+        pickerView.dataSource = dropDownDataSource
         return pickerView
     }()
     
@@ -124,28 +121,19 @@ extension ServiceOptionView: UITextFieldDelegate {
     }
 }
 //MARK:- UIPickerViewDelegate
-extension ServiceOptionView: UIPickerViewDelegate { }
-//MARK:- UIPickerViewDataSource
-extension ServiceOptionView: UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return options.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "Option " + options[row]
-    }
-    
+extension ServiceOptionView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        optionTextField.text = options[row]
+        guard let optionNumber = options[row].components(separatedBy: " ").last else {
+            return
+        }
+        optionTextField.text = optionNumber
         optionTextField.endEditing(true)
     }
-    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        dropDownDataSource.values[row]
+    }
 }
+
 //MARK:- View Code
 extension ServiceOptionView: ViewCodable {
     func setupHierarchyViews() {

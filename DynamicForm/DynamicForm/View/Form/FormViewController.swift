@@ -80,6 +80,7 @@ class FormViewController: UIViewController {
             guard let self = self else { return }
             self.hideActivityIndicator()
             self.dataSource.fields = form?.fields ?? []
+            self.formView.headerLabel.text = form?.screenTitle
             self.formView.collectionView.reloadData()
         }
     }
