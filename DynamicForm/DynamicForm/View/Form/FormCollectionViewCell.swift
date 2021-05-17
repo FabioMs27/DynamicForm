@@ -16,11 +16,17 @@ enum InputState {
 
 /// Custom collectionViewCell with the inputs.
 class FormCollectionViewCell: UICollectionViewCell {
-    //MARK:- Atributtes
     var isMandatory: Bool = false
     var regex: String = ""
-    var values = [String]()
-    //MARK:- Interface
+    private let dropDownDataSource = DropDownDataSource()
+    var values: [String] {
+        set {
+            dropDownDataSource.update(values: newValue)
+            optionPickerView.reloadAllComponents()
+        }
+        get { dropDownDataSource.values }
+    }
+    
     lazy var inputTextField: UITextField = { [weak self] in
         let textField = UITextField()
         textField.delegate = self
@@ -33,7 +39,7 @@ class FormCollectionViewCell: UICollectionViewCell {
     lazy var optionPickerView: UIPickerView = { [weak self] in
         let pickerView = UIPickerView()
         pickerView.delegate = self
-        pickerView.dataSource = self
+        pickerView.dataSource = dropDownDataSource
         return pickerView
     }()
     
@@ -57,13 +63,19 @@ class FormCollectionViewCell: UICollectionViewCell {
     //MARK:- Constructor
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        layoutMargins.left = 20
-        layoutMargins.right = 20
         setupViews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func showInvalid(text: String) {
+        UIView.animate(withDuration: 0.25) { [unowned self] in
+            isMandatoryLabel.text = text
+            isMandatoryLabel.alpha = 1
+        }
+        inputTextField.shakeAnimation()
     }
     
 }
@@ -75,20 +87,9 @@ extension FormCollectionViewCell: UITextFieldDelegate {
     }
 }
 //MARK:- UIPickerViewDelegate
-extension FormCollectionViewCell: UIPickerViewDelegate { }
-//MARK:- UIPickerViewDataSource
-extension FormCollectionViewCell: UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return values.count
-    }
-    
+extension FormCollectionViewCell: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return values[row]
+        values[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -96,8 +97,8 @@ extension FormCollectionViewCell: UIPickerViewDataSource {
         inputTextField.text = text
         inputTextField.endEditing(true)
     }
-    
 }
+
 //MARK:- View Code
 extension FormCollectionViewCell: ViewCodable {
     func setupHierarchyViews() {
@@ -113,5 +114,14 @@ extension FormCollectionViewCell: ViewCodable {
             inputTextField.topAnchor.constraint(equalTo: isMandatoryLabel.bottomAnchor, constant: 8),
             hintLabel.topAnchor.constraint(equalTo: inputTextField.bottomAnchor, constant: 8),
         ])
+    }
+    
+    func setupAdditionalConfiguration() {
+        layoutMargins = UIEdgeInsets(
+            top: 0,
+            left: 20,
+            bottom: 0,
+            right: 20
+        )
     }
 }

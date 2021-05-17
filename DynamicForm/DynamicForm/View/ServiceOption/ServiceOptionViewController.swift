@@ -16,35 +16,39 @@ class ServiceOptionViewController: UIViewController {
     
     let serviceOptionView: ServiceOptionView
     let serviceOptionViewModel: ServiceOptionViewModel
-    var coordinator: ServiceOptionViewControllerCoordinator?
+    weak var coordinator: ServiceOptionViewControllerCoordinator?
     
     init(view: ServiceOptionView, viewModel: ServiceOptionViewModel) {
         self.serviceOptionView = view
         self.serviceOptionViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.view  = view
-        serviceOptionView.proccedButton.addTarget(self, action: #selector(goToFormView), for: .touchUpInside)
+        serviceOptionView.proccedButton.addAction(
+            UIAction { [goToFormView] _ in
+                goToFormView()
+            },
+            for: .touchUpInside)
+        hideKeyboardWhenTappedAround()
     }
     
     required init?(coder: NSCoder) {
         fatalError()
     }
+    
+    override func loadView() {
+        view = serviceOptionView
+    }
+    
     //MARK:- Methods
     /// Method called when button is pressed. It validas the textFields and either presents an error or goes to next screen.
-    @objc func goToFormView() {
+    func goToFormView() {
         do {
             let value = serviceOptionView.optionTextField.text
             let option = try serviceOptionViewModel.inputValidator(value: value)
             coordinator?.navigateToFormViewController(option: option)
             serviceOptionView.errorLabel.alpha = 0
         } catch {
-            UIView.animate(withDuration: 0.25) { [weak self] in
-                self?.serviceOptionView.errorLabel.text = error.localizedDescription
-                self?.serviceOptionView.errorLabel.alpha = 1
-            }
-            serviceOptionView.optionTextField.shakeAnimation()
-            let generator = UIImpactFeedbackGenerator(style: .heavy)
-            generator.impactOccurred()
+            serviceOptionView.showInvalid(text: error.localizedDescription)
+            giveInvalidFeedback()
         }
     }
 

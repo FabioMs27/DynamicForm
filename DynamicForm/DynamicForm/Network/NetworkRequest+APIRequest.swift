@@ -6,17 +6,18 @@
 //
 
 import Foundation
+import UIKit
 
 protocol NetworkRequest: class {
+    associatedtype ModelType
     var session: URLSessionProtocol { get }
-    func request<ModelType: Decodable>(urlPath: String, modelType: ModelType.Type, completionHandler: @escaping (Result<ModelType, NetworkError>) -> Void)
-    func decode<ModelType: Decodable>(_ data: Data) -> ModelType?
+    func request(urlPath: String, completionHandler: @escaping (Result<ModelType, NetworkError>) -> Void)
+    func decode(_ data: Data) -> ModelType?
 }
 
 extension NetworkRequest {
-    func request<ModelType: Decodable>(
+    internal func request(
         urlPath: String,
-        modelType: ModelType.Type,
         completionHandler: @escaping (Result<ModelType, NetworkError>) -> Void) {
         guard let url = URL(string: urlPath) else {
             completionHandler(.failure(NetworkError.invalidURL))
@@ -42,15 +43,22 @@ extension NetworkRequest {
     }
 }
 
-class APIRequest: NetworkRequest {
+class APIRequest<Resource: APIResource>: NetworkRequest {
     var session: URLSessionProtocol
-    init(session: URLSessionProtocol = URLSession.shared) {
+    let resource: Resource
+    
+    init(session: URLSessionProtocol = URLSession.shared, resource: Resource) {
         self.session = session
+        self.resource = resource
     }
     
-    func decode<ModelType: Decodable>(_ data: Data) -> ModelType? {
+    func request(completionHandler: @escaping (Result<Resource.ModelType, NetworkError>) -> Void) {
+        self.request(urlPath: resource.urlPath, completionHandler: completionHandler)
+    }
+    
+    func decode(_ data: Data) -> Resource.ModelType? {
         let decoder = JSONDecoder()
-        let wrapper = try? decoder.decode(Wrapper<ModelType>.self, from: data)
+        let wrapper = try? decoder.decode(Wrapper<Resource.ModelType>.self, from: data)
         return wrapper?.result
     }
 }

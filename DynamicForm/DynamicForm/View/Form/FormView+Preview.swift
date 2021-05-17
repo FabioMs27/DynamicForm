@@ -9,18 +9,6 @@ import UIKit
 import SwiftUI
 
 final class FormView: UIView {
-    //MARK:- Atributtes
-    var form: Form? {
-        willSet{
-            collectionView.reloadData()
-            headerLabel.text = newValue?.screenTitle
-        }
-    }
-    
-    var fields: [Fields] {
-        form?.fields ?? []
-    }
-    
     //MARK:- Interface
     lazy var backgroundView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/4))
@@ -46,10 +34,8 @@ final class FormView: UIView {
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: Metrics.Device.width, height: Metrics.Device.height * 0.15)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(FormCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         collectionView.backgroundColor = .clear
+        collectionView.register(FormCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         return collectionView
     }()
     
@@ -116,7 +102,8 @@ struct FormViewControllerPreviews: PreviewProvider {
         UIViewControllerPreview {
             return FormViewController(
                 formView: FormView(),
-                viewModel: FormViewModel(option: 1)
+                viewModel: FormViewModel(option: 1),
+                dataSource: FormDataSource()
             )
         }
     }
