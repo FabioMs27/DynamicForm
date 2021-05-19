@@ -9,8 +9,6 @@ import UIKit
 
 class FormDataSource: NSObject {
     var fields = [Fields]()
-    private let numberDelegate = NumberTextFieldDelegate()
-    private let returnDelegate = ReturnTextFieldDelegate()
 }
 
 extension FormDataSource: UICollectionViewDataSource {
@@ -31,12 +29,8 @@ extension FormDataSource: UICollectionViewDataSource {
         cell.inputTextField.attributedPlaceholder = field.placeholder.atributedString
         cell.regex = field.regex
         cell.isMandatory = field.isMandatory
-        if field.dataType == .int {
-            cell.inputTextField.delegate = numberDelegate
-            cell.inputTextField.keyboardType = .decimalPad
-        } else {
-            cell.inputTextField.delegate = returnDelegate
-        }
+        cell.inputTextField.delegate = field.dataType.getTextFieldDelegate()
+        cell.inputTextField.keyboardType = field.dataType.getKeyboardType()
         if field.type == .dropdown {
             cell.values = field.values
             cell.inputTextField.inputView = cell.optionPickerView

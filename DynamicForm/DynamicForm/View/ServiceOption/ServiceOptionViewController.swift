@@ -14,20 +14,15 @@ protocol ServiceOptionViewControllerCoordinator: class {
 /// Class containing the service option Interface
 class ServiceOptionViewController: UIViewController {
     
-    let serviceOptionView: ServiceOptionView
-    let serviceOptionViewModel: ServiceOptionViewModel
+    private let serviceOptionView: ServiceOptionView
+    private let serviceOptionViewModel: ServiceOptionViewModel
     weak var coordinator: ServiceOptionViewControllerCoordinator?
     
     init(view: ServiceOptionView, viewModel: ServiceOptionViewModel) {
         self.serviceOptionView = view
         self.serviceOptionViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        serviceOptionView.proccedButton.addAction(
-            UIAction { [goToFormView] _ in
-                goToFormView()
-            },
-            for: .touchUpInside)
-        hideKeyboardWhenTappedAround()
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +33,15 @@ class ServiceOptionViewController: UIViewController {
         view = serviceOptionView
     }
     
-    //MARK:- Methods
+    private func setup() {
+        serviceOptionView.proccedButton.addAction(
+            UIAction { [goToFormView] _ in
+                goToFormView()
+            },
+            for: .touchUpInside)
+        hideKeyboardWhenTappedAround()
+    }
+    
     /// Method called when button is pressed. It validas the textFields and either presents an error or goes to next screen.
     func goToFormView() {
         do {

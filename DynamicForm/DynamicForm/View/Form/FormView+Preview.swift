@@ -9,7 +9,6 @@ import UIKit
 import SwiftUI
 
 final class FormView: UIView {
-    //MARK:- Interface
     lazy var backgroundView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/4))
         view.backgroundColor = #colorLiteral(red: 0.4824108481, green: 0.7250191569, blue: 0.2658652067, alpha: 1)
@@ -51,7 +50,7 @@ final class FormView: UIView {
         button.layer.shadowRadius = 10
         return button
     }()
-    //MARK:- Constructor
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()

@@ -60,7 +60,7 @@ class FormCollectionViewCell: UICollectionViewCell {
         label.alpha = 0
         return label
     }()
-    //MARK:- Constructor
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupViews()
@@ -77,7 +77,6 @@ class FormCollectionViewCell: UICollectionViewCell {
         }
         inputTextField.shakeAnimation()
     }
-    
 }
 //MARK:- UITextFieldDelegate
 extension FormCollectionViewCell: UITextFieldDelegate {
@@ -102,7 +101,7 @@ extension FormCollectionViewCell: UIPickerViewDelegate {
 //MARK:- View Code
 extension FormCollectionViewCell: ViewCodable {
     func setupHierarchyViews() {
-        let margins:[LayoutAnchor] = [.leading(layoutMargins.left), .trailing(-layoutMargins.right)]
+        let margins: [LayoutAnchor] = [.leading(layoutMargins.left), .trailing(-layoutMargins.right)]
         addSubview(inputTextField, anchors: margins)
         addSubview(hintLabel, anchors: margins + [.bottom(0)])
         addSubview(isMandatoryLabel, anchors: margins)

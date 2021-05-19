@@ -9,20 +9,16 @@ import UIKit
 /// Class containing the form Interface
 class FormViewController: UIViewController {
     
-    let formView: FormView
-    let formViewModel: FormViewModel
-    let dataSource: FormDataSource
+    private let formView: FormView
+    private let formViewModel: FormViewModel
+    private let dataSource: FormDataSource
     
     init(formView: FormView, viewModel: FormViewModel, dataSource: FormDataSource) {
         self.formView = formView
         self.formViewModel = viewModel
         self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
-        formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
-        bindViewModel()
-        fetchForm()
-        hideKeyboardWhenTappedAround()
-        formView.collectionView.dataSource = dataSource
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -33,9 +29,17 @@ class FormViewController: UIViewController {
         view = formView
     }
     
+    private func setup() {
+        bindViewModel()
+        fetchForm()
+        hideKeyboardWhenTappedAround()
+        formView.submitButton.addAction(UIAction(handler: submitForm),for: .touchUpInside)
+        formView.collectionView.dataSource = dataSource
+    }
+    
     /// Method called when submit button is pressed. It validates all fields and update accordingly.
     /// - Parameter sender: The button that was pressed.
-    @objc func submitForm(sender: UIButton){
+    func submitForm(sender: UIAction){
         var isValid = true
         for view in formView.collectionView.subviews {
             guard let cell = view as? FormCollectionViewCell else { return }
