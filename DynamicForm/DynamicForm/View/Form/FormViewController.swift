@@ -11,12 +11,10 @@ class FormViewController: UIViewController {
     
     private let formView: FormView
     private let formViewModel: FormViewModel
-    private let dataSource: FormDataSource
     
-    init(formView: FormView, viewModel: FormViewModel, dataSource: FormDataSource) {
+    init(formView: FormView, viewModel: FormViewModel) {
         self.formView = formView
         self.formViewModel = viewModel
-        self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
         setup()
     }
@@ -34,7 +32,6 @@ class FormViewController: UIViewController {
         fetchForm()
         hideKeyboardWhenTappedAround()
         formView.submitButton.addAction(UIAction(handler: submitForm),for: .touchUpInside)
-        formView.collectionView.dataSource = dataSource
     }
     
     /// Method called when submit button is pressed. It validates all fields and update accordingly.
@@ -83,9 +80,8 @@ class FormViewController: UIViewController {
         formViewModel.formPublisher.bind { [weak self] form in
             guard let self = self else { return }
             self.hideActivityIndicator()
-            self.dataSource.fields = form?.fields ?? []
+            self.formView.buildFieldStackViews(form?.fields ?? [])
             self.formView.headerLabel.text = form?.screenTitle
-            self.formView.collectionView.reloadData()
         }
     }
     

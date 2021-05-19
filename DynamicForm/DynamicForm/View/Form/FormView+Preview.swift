@@ -9,8 +9,20 @@ import UIKit
 import SwiftUI
 
 final class FormView: UIView {
+    var fieldStackViews = [FieldStackView]() {
+        didSet {
+            oldValue.forEach {
+                formStackView.removeArrangedSubview($0)
+                $0.removeFromSuperview()
+            }
+            fieldStackViews.forEach {
+                formStackView.addArrangedSubview($0)
+            }
+        }
+    }
+    
     lazy var backgroundView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/4))
+        let view = UIView(frame: .zero)
         view.backgroundColor = #colorLiteral(red: 0.4824108481, green: 0.7250191569, blue: 0.2658652067, alpha: 1)
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
@@ -26,6 +38,24 @@ final class FormView: UIView {
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
+    }()
+    
+    private lazy var formStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.alignment    = .fill
+        stack.axis         = .vertical
+        stack.distribution = .fill
+        stack.spacing = 16
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private lazy var formScrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.backgroundColor = .clear
+        scroll.alwaysBounceVertical = true
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
     }()
     
     lazy var collectionView: UICollectionView = { [weak self] in
@@ -53,6 +83,7 @@ final class FormView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         setupViews()
     }
     required init?(coder: NSCoder) {
@@ -62,15 +93,24 @@ final class FormView: UIView {
 //MARK:- View Code
 extension FormView: ViewCodable {
     func setupHierarchyViews() {
-        addSubview(backgroundView)
+        addSubview(
+            backgroundView,
+            anchors: [.height(Metrics.Device.height/4), .width(Metrics.Device.width), .top(0)]
+        )
         backgroundView.addSubview(
             headerLabel,
             anchors: [.centerX(0), .centerY(0)]
         )
         addSubview(
-            collectionView,
-            anchors: [.top(backgroundView.frame.height), .leading(layoutMargins.left), .trailing(-layoutMargins.right)]
+            formScrollView,
+            anchors: [.leading(0), .trailing(0)]
         )
+        
+        formScrollView.addSubview(
+            formStackView,
+            anchors: [.top(0), .bottom(0)]
+        )
+        
         addSubview(
             submitButton,
             anchors: [.centerX(0), .leading(20 + layoutMargins.left), .trailing(-20 - layoutMargins.right)]
@@ -79,13 +119,38 @@ extension FormView: ViewCodable {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16),
+            formScrollView.topAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: 8),
+            formScrollView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16),
+            formStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            formStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             submitButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16)
         ])
     }
     
     func setupAdditionalConfiguration() {
         backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+}
+
+extension FormView {
+    func buildFieldStackViews(_ fields: [Fields]) {
+        fieldStackViews.removeAll()
+        fieldStackViews = fields.map { field in
+            buildFieldStackView(field)
+        }
+    }
+    
+    private func buildFieldStackView(_ field: Fields) -> FieldStackView {
+        let stackView = FieldStackView(isMandatory: field.isMandatory, regex: field.regex)
+        stackView.hintLabel.text = "hint: \(field.hintText)"
+        stackView.inputTextField.attributedPlaceholder = field.placeholder.atributedString
+        stackView.inputTextField.delegate = field.dataType.getTextFieldDelegate()
+        stackView.inputTextField.keyboardType = field.dataType.getKeyboardType()
+        if field.type == .dropdown {
+            stackView.values = field.values
+            stackView.inputTextField.inputView = stackView.optionPickerView
+        }
+        return stackView
     }
 }
 
@@ -101,8 +166,7 @@ struct FormViewControllerPreviews: PreviewProvider {
         UIViewControllerPreview {
             return FormViewController(
                 formView: FormView(),
-                viewModel: FormViewModel(option: 1),
-                dataSource: FormDataSource()
+                viewModel: FormViewModel(option: 1)
             )
         }
     }

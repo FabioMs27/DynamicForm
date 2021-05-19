@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79098C872654EB83009A6813 /* FieldStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79098C862654EB83009A6813 /* FieldStackView.swift */; };
 		79476170260B7D3C0044F1D0 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */; };
 		7947617D260B7E1B0044F1D0 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947617C260B7E1B0044F1D0 /* FormDataSource.swift */; };
 		79588F2D260287B300C0D839 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F2C260287B300C0D839 /* URLSession.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79098C862654EB83009A6813 /* FieldStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldStackView.swift; sourceTree = "<group>"; };
 		7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
 		7947617C260B7E1B0044F1D0 /* FormDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
 		79588F2C260287B300C0D839 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */,
 				79A6928D25755CEB002D5268 /* FormViewController.swift */,
 				79A6931325768D43002D5268 /* FormView+Preview.swift */,
+				79098C862654EB83009A6813 /* FieldStackView.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79098C872654EB83009A6813 /* FieldStackView.swift in Sources */,
 				79A1EE7925FFAE330001C64B /* Observer.swift in Sources */,
 				79A6931425768D43002D5268 /* FormView+Preview.swift in Sources */,
 				79A1EE7425FF589A0001C64B /* String.swift in Sources */,
