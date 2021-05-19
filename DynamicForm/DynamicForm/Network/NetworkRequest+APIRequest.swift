@@ -16,7 +16,7 @@ protocol NetworkRequest: class {
 }
 
 extension NetworkRequest {
-    internal func request(
+    func request(
         urlPath: String,
         completionHandler: @escaping (Result<ModelType, NetworkError>) -> Void) {
         guard let url = URL(string: urlPath) else {

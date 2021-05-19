@@ -9,7 +9,7 @@ import UIKit
 
 class FieldStackView: UIStackView {
     
-    private let stackSpacing: CGFloat = 16
+    private let stackSpacing: CGFloat = 22
     let isMandatory: Bool
     let regex: String
     var text = String()

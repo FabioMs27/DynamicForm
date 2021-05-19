@@ -20,6 +20,8 @@ final class FormView: UIView {
             }
         }
     }
+    private let initialFieldSpacing: CGFloat = 22
+    private let fieldsSpacing: CGFloat = 22
     
     lazy var backgroundView: UIView = {
         let view = UIView(frame: .zero)
@@ -45,7 +47,7 @@ final class FormView: UIView {
         stack.alignment    = .fill
         stack.axis         = .vertical
         stack.distribution = .fill
-        stack.spacing = 16
+        stack.spacing = fieldsSpacing
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -98,7 +100,7 @@ extension FormView: ViewCodable {
         
         formScrollView.addSubview(
             formStackView,
-            anchors: [.top(16), .bottom(0)]
+            anchors: [.top(initialFieldSpacing), .bottom(0)]
         )
         
         addSubview(

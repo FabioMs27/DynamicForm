@@ -23,3 +23,9 @@ struct FormResource: APIResource {
         self.option = option
     }
 }
+
+struct MockedResource: APIResource {
+    typealias ModelType = Fields
+    var urlPath: String = ""
+    var method: String = ""
+}

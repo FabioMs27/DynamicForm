@@ -10,13 +10,13 @@ import XCTest
 
 class NetworkingTests: XCTestCase {
     
-    var network: NetworkRequest!
+    var network: APIRequest<FormResource>!
     var urlPath: URL!
     let session = MockedSession()
     let fileName = "form.json"
 
     override func setUpWithError() throws {
-        network = APIRequest(session: session)
+        network = APIRequest(session: session, resource: FormResource())
         guard let url = Bundle(for: NetworkingTests.self).url(forResource: fileName, withExtension: nil) else {
             fatalError("URL not valid!")
         }
@@ -33,7 +33,7 @@ class NetworkingTests: XCTestCase {
             headerFields: nil
         )
         session.error = nil
-        network.request(urlPath: urlPath.absoluteString, modelType: Form.self) { result in
+        network.request(urlPath: urlPath.absoluteString) { result in
             switch result {
             case .success(let model):
                 sut = model
@@ -48,7 +48,7 @@ class NetworkingTests: XCTestCase {
         session.data = nil
         session.response = nil
         session.error = NetworkError.unknownError
-        network.request(urlPath: urlPath.absoluteString, modelType: Form.self) { result in
+        network.request(urlPath: urlPath.absoluteString) { result in
             switch result {
             case .success(_): break
             case .failure(let error):
@@ -71,7 +71,7 @@ class NetworkingTests: XCTestCase {
             headerFields: nil
         )
         session.error = nil
-        network.request(urlPath: urlPath.absoluteString, modelType: Form.self) { result in
+        network.request(urlPath: urlPath.absoluteString) { result in
             switch result {
             case .success(_): break
             case .failure(let error):
@@ -86,7 +86,7 @@ class NetworkingTests: XCTestCase {
     
     func testUrlError() {
         var sut: Error?
-        network.request(urlPath: "", modelType: Form.self) { result in
+        network.request(urlPath: "") { result in
             switch result {
             case .success(_): break
             case .failure(let error):
@@ -100,6 +100,7 @@ class NetworkingTests: XCTestCase {
     }
     
     func testDecodingError() {
+        let wrongRequest = APIRequest<MockedResource>(session: session, resource: MockedResource())
         var sut: Error?
         session.data = try? Data(contentsOf: urlPath)
         session.response = HTTPURLResponse(
@@ -109,7 +110,7 @@ class NetworkingTests: XCTestCase {
             headerFields: nil
         )
         session.error = nil
-        network.request(urlPath: urlPath.absoluteString, modelType: Fields.self) { result in
+        wrongRequest.request(urlPath: urlPath.absoluteString) { result in
             switch result {
             case .success(_): break
             case .failure(let error):
