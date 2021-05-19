@@ -58,16 +58,6 @@ final class FormView: UIView {
         return scroll
     }()
     
-    lazy var collectionView: UICollectionView = { [weak self] in
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: Metrics.Device.width, height: Metrics.Device.height * 0.15)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
-        collectionView.register(FormCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        return collectionView
-    }()
-    
     lazy var submitButton: UIButton = {
         let button = UIButton()
         button.setTitle("Submit", for: .normal)
@@ -83,7 +73,7 @@ final class FormView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 16, right: 20)
         setupViews()
     }
     required init?(coder: NSCoder) {
@@ -108,7 +98,7 @@ extension FormView: ViewCodable {
         
         formScrollView.addSubview(
             formStackView,
-            anchors: [.top(0), .bottom(0)]
+            anchors: [.top(16), .bottom(0)]
         )
         
         addSubview(
@@ -119,11 +109,11 @@ extension FormView: ViewCodable {
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            formScrollView.topAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: 8),
+            formScrollView.topAnchor.constraint(equalTo: backgroundView.bottomAnchor, constant: 2),
             formScrollView.bottomAnchor.constraint(equalTo: submitButton.topAnchor, constant: -16),
             formStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             formStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            submitButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16)
+            submitButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
     
@@ -151,12 +141,6 @@ extension FormView {
             stackView.inputTextField.inputView = stackView.optionPickerView
         }
         return stackView
-    }
-}
-
-extension UICollectionViewFlowLayout {
-    open override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
     }
 }
 

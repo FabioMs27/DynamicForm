@@ -38,21 +38,20 @@ class FormViewController: UIViewController {
     /// - Parameter sender: The button that was pressed.
     func submitForm(sender: UIAction){
         var isValid = true
-        for view in formView.collectionView.subviews {
-            guard let cell = view as? FormCollectionViewCell else { return }
-            do {
-                if cell.isMandatory {
+        formView.fieldStackViews
+            .filter { $0.isMandatory }
+            .forEach { fieldStack in
+                do {
                     try formViewModel.validateInputs(
-                        value: cell.inputTextField.text,
-                        pattern: cell.regex
+                        value: fieldStack.inputTextField.text,
+                        pattern: fieldStack.regex
                     )
+                    fieldStack.isMandatoryLabel.textColor = .clear
+                } catch {
+                    fieldStack.showInvalid(text: error.localizedDescription)
+                    isValid = false
                 }
-                cell.isMandatoryLabel.textColor = .clear
-            } catch {
-                cell.showInvalid(text: error.localizedDescription)
-                isValid = false
             }
-        }
         isValid ? completeAssessment() : giveInvalidFeedback()
     }
     
