@@ -5,12 +5,30 @@
 //  Created by Fábio Maciel de Sousa on 29/11/20.
 //
 
-import Foundation
+import UIKit
 
 enum DataType: String {
+    private static let numberDelegate = NumberTextFieldDelegate()
+    private static let returnDelegate = ReturnTextFieldDelegate()
+    
     case int
     case string
     case none
+    
+    func getTextFieldDelegate() -> UITextFieldDelegate? {
+        switch self {
+        case .int:    return Self.numberDelegate
+        case .string: return Self.returnDelegate
+        default:      return nil
+        }
+    }
+    
+    func getKeyboardType() -> UIKeyboardType {
+        switch self {
+        case .int: return .numberPad
+        default:   return .default
+        }
+    }
 }
 
 enum UIType: String {

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79098C872654EB83009A6813 /* FieldStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79098C862654EB83009A6813 /* FieldStackView.swift */; };
 		79476170260B7D3C0044F1D0 /* TextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */; };
-		7947617D260B7E1B0044F1D0 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7947617C260B7E1B0044F1D0 /* FormDataSource.swift */; };
 		79588F2D260287B300C0D839 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F2C260287B300C0D839 /* URLSession.swift */; };
 		79588F3226028A2200C0D839 /* MockedSession+MockSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79588F3126028A2200C0D839 /* MockedSession+MockSessionTask.swift */; };
 		79588F3D260392F100C0D839 /* form.json in Resources */ = {isa = PBXBuildFile; fileRef = 79588F3C260392F100C0D839 /* form.json */; };
@@ -37,7 +37,6 @@
 		79A6931B2576F867002D5268 /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6931A2576F866002D5268 /* ValidationError.swift */; };
 		79A693202577047C002D5268 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6931F2577047B002D5268 /* NetworkError.swift */; };
 		79A6932525770D70002D5268 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6932425770D70002D5268 /* UIViewController.swift */; };
-		79A6933C25772A73002D5268 /* FormCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */; };
 		79D2296A2652766A000322D0 /* APIResource+FormResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D229692652766A000322D0 /* APIResource+FormResource.swift */; };
 		79D2297B2652AA3E000322D0 /* Wrapper+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D2297A2652AA3D000322D0 /* Wrapper+Decodable.swift */; };
 		79D2298B2652CF34000322D0 /* DropDownDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D2298A2652CF34000322D0 /* DropDownDataSource.swift */; };
@@ -63,8 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		79098C862654EB83009A6813 /* FieldStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldStackView.swift; sourceTree = "<group>"; };
 		7947616F260B7D3C0044F1D0 /* TextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDelegate.swift; sourceTree = "<group>"; };
-		7947617C260B7E1B0044F1D0 /* FormDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
 		79588F2C260287B300C0D839 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		79588F3126028A2200C0D839 /* MockedSession+MockSessionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MockedSession+MockSessionTask.swift"; sourceTree = "<group>"; };
 		79588F3C260392F100C0D839 /* form.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = form.json; sourceTree = "<group>"; };
@@ -99,7 +98,6 @@
 		79A6931A2576F866002D5268 /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
 		79A6931F2577047B002D5268 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		79A6932425770D70002D5268 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewCell.swift; sourceTree = "<group>"; };
 		79D229692652766A000322D0 /* APIResource+FormResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIResource+FormResource.swift"; sourceTree = "<group>"; };
 		79D2297A2652AA3D000322D0 /* Wrapper+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wrapper+Decodable.swift"; sourceTree = "<group>"; };
 		79D2298A2652CF34000322D0 /* DropDownDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownDataSource.swift; sourceTree = "<group>"; };
@@ -231,7 +229,6 @@
 			children = (
 				79A6928525755CC5002D5268 /* FormViewModel.swift */,
 				79A6929725755D1C002D5268 /* ServiceOptionViewModel.swift */,
-				7947617C260B7E1B0044F1D0 /* FormDataSource.swift */,
 				79D2298A2652CF34000322D0 /* DropDownDataSource.swift */,
 			);
 			path = "View Model";
@@ -301,9 +298,9 @@
 		79A6928425755AB0002D5268 /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				79A6933B25772A73002D5268 /* FormCollectionViewCell.swift */,
 				79A6928D25755CEB002D5268 /* FormViewController.swift */,
 				79A6931325768D43002D5268 /* FormView+Preview.swift */,
+				79098C862654EB83009A6813 /* FieldStackView.swift */,
 			);
 			path = Form;
 			sourceTree = "<group>";
@@ -439,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79098C872654EB83009A6813 /* FieldStackView.swift in Sources */,
 				79A1EE7925FFAE330001C64B /* Observer.swift in Sources */,
 				79A6931425768D43002D5268 /* FormView+Preview.swift in Sources */,
 				79A1EE7425FF589A0001C64B /* String.swift in Sources */,
@@ -446,7 +444,6 @@
 				79F96E6B25789B5900F6B617 /* UIView.swift in Sources */,
 				79A1EE5425FA3C060001C64B /* LayoutAnchor.swift in Sources */,
 				79A6928E25755CEB002D5268 /* FormViewController.swift in Sources */,
-				7947617D260B7E1B0044F1D0 /* FormDataSource.swift in Sources */,
 				79A1EE2B25FA355B0001C64B /* UIViewControllerPreview.swift in Sources */,
 				79A692B825756D8E002D5268 /* ViewCodable.swift in Sources */,
 				79D2297B2652AA3E000322D0 /* Wrapper+Decodable.swift in Sources */,
@@ -462,7 +459,6 @@
 				79A693202577047C002D5268 /* NetworkError.swift in Sources */,
 				79588F2D260287B300C0D839 /* URLSession.swift in Sources */,
 				79A6931B2576F867002D5268 /* ValidationError.swift in Sources */,
-				79A6933C25772A73002D5268 /* FormCollectionViewCell.swift in Sources */,
 				79A6929825755D1C002D5268 /* ServiceOptionViewModel.swift in Sources */,
 				79D2298B2652CF34000322D0 /* DropDownDataSource.swift in Sources */,
 				79A6923525741FA8002D5268 /* AppDelegate.swift in Sources */,

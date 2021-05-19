@@ -9,20 +9,14 @@ import UIKit
 /// Class containing the form Interface
 class FormViewController: UIViewController {
     
-    let formView: FormView
-    let formViewModel: FormViewModel
-    let dataSource: FormDataSource
+    private let formView: FormView
+    private let formViewModel: FormViewModel
     
-    init(formView: FormView, viewModel: FormViewModel, dataSource: FormDataSource) {
+    init(formView: FormView, viewModel: FormViewModel) {
         self.formView = formView
         self.formViewModel = viewModel
-        self.dataSource = dataSource
         super.init(nibName: nil, bundle: nil)
-        formView.submitButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
-        bindViewModel()
-        fetchForm()
-        hideKeyboardWhenTappedAround()
-        formView.collectionView.dataSource = dataSource
+        setup()
     }
     
     required init?(coder: NSCoder) {
@@ -33,25 +27,31 @@ class FormViewController: UIViewController {
         view = formView
     }
     
+    private func setup() {
+        bindViewModel()
+        fetchForm()
+        hideKeyboardWhenTappedAround()
+        formView.submitButton.addAction(UIAction(handler: submitForm),for: .touchUpInside)
+    }
+    
     /// Method called when submit button is pressed. It validates all fields and update accordingly.
     /// - Parameter sender: The button that was pressed.
-    @objc func submitForm(sender: UIButton){
+    func submitForm(sender: UIAction){
         var isValid = true
-        for view in formView.collectionView.subviews {
-            guard let cell = view as? FormCollectionViewCell else { return }
-            do {
-                if cell.isMandatory {
+        formView.fieldStackViews
+            .filter { $0.isMandatory }
+            .forEach { fieldStack in
+                do {
                     try formViewModel.validateInputs(
-                        value: cell.inputTextField.text,
-                        pattern: cell.regex
+                        value: fieldStack.inputTextField.text,
+                        pattern: fieldStack.regex
                     )
+                    fieldStack.isMandatoryLabel.textColor = .clear
+                } catch {
+                    fieldStack.showInvalid(text: error.localizedDescription)
+                    isValid = false
                 }
-                cell.isMandatoryLabel.textColor = .clear
-            } catch {
-                cell.showInvalid(text: error.localizedDescription)
-                isValid = false
             }
-        }
         isValid ? completeAssessment() : giveInvalidFeedback()
     }
     
@@ -79,9 +79,8 @@ class FormViewController: UIViewController {
         formViewModel.formPublisher.bind { [weak self] form in
             guard let self = self else { return }
             self.hideActivityIndicator()
-            self.dataSource.fields = form?.fields ?? []
+            self.formView.buildFieldStackViews(form?.fields ?? [])
             self.formView.headerLabel.text = form?.screenTitle
-            self.formView.collectionView.reloadData()
         }
     }
     

@@ -13,6 +13,7 @@ import SwiftUI
 final class ServiceOptionView: UIView {
     private let dropDownDataSource = DropDownDataSource()
     private let options = (1...3).map { "Option \($0)" }
+    private let optionDelegate = OptionTextFieldDelegate()
     
     lazy var backgroundView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: Metrics.Device.width, height: Metrics.Device.height/2))
@@ -45,7 +46,7 @@ final class ServiceOptionView: UIView {
     
     lazy var optionTextField: UITextField = { [weak self] in
         let textField = UITextField()
-        textField.delegate = self
+        textField.delegate = optionDelegate
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
         let attributedPlaceholder = NSAttributedString(
@@ -89,11 +90,10 @@ final class ServiceOptionView: UIView {
         button.layer.shadowRadius = 10
         return button
     }()
-    //MARK:- Constructor
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        layoutMargins.left = 20
-        layoutMargins.right = 20
+        layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 16)
         setupViews()
     }
     
@@ -110,16 +110,7 @@ final class ServiceOptionView: UIView {
     }
     
 }
-//MARK:- UITextFieldDelegate
-extension ServiceOptionView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
-    }
-}
+
 //MARK:- UIPickerViewDelegate
 extension ServiceOptionView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -163,7 +154,7 @@ extension ServiceOptionView: ViewCodable {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             welcomeLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: -40),
-            proccedButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -16)
+            proccedButton.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
         ])
     }
     

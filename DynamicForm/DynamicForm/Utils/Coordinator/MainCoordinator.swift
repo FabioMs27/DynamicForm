@@ -33,12 +33,7 @@ extension MainCoordinator: ServiceOptionViewControllerCoordinator{
     func navigateToFormViewController(option: Int) {
         let view = FormView()
         let viewModel = FormViewModel(option: option)
-        let dataSource = FormDataSource()
-        let viewController = FormViewController(
-            formView: view,
-            viewModel: viewModel,
-            dataSource: dataSource
-        )
+        let viewController = FormViewController(formView: view, viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
 }

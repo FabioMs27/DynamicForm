@@ -1,23 +1,19 @@
 //
-//  FormCollectionViewCell.swift
-//  Bankaks-Assessment
+//  FieldStackView.swift
+//  DynamicForm
 //
-//  Created by Fábio Maciel de Sousa on 01/12/20.
+//  Created by Fábio Maciel de Sousa on 19/05/21.
 //
 
 import UIKit
 
-/// Enum with the states of the textField.
-enum InputState {
-    case filled
-    case notFilled
-    case optional
-}
-
-/// Custom collectionViewCell with the inputs.
-class FormCollectionViewCell: UICollectionViewCell {
-    var isMandatory: Bool = false
-    var regex: String = ""
+class FieldStackView: UIStackView {
+    
+    private let stackSpacing: CGFloat = 16
+    let isMandatory: Bool
+    let regex: String
+    var text = String()
+    
     private let dropDownDataSource = DropDownDataSource()
     var values: [String] {
         set {
@@ -27,12 +23,39 @@ class FormCollectionViewCell: UICollectionViewCell {
         get { dropDownDataSource.values }
     }
     
+    init(isMandatory: Bool, regex: String) {
+        self.isMandatory = isMandatory
+        self.regex = regex
+        super.init(frame: .zero)
+        addArrangedSubview(isMandatoryLabel)
+        addArrangedSubview(inputTextField)
+        addArrangedSubview(hintLabel)
+        setupStackView()
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupStackView() {
+        alignment    = .fill
+        axis         = .vertical
+        distribution = .fill
+        spacing = stackSpacing
+    }
+    
     lazy var inputTextField: UITextField = { [weak self] in
         let textField = UITextField()
-        textField.delegate = self
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
         textField.autocapitalizationType = .none
+        textField.addAction(
+            UIAction { [weak self] action in
+                if let textField = action.sender as? UITextField {
+                    self?.text = textField.text ?? ""
+                }
+            }, for: .editingDidEnd
+        )
         return textField
     }()
     
@@ -60,15 +83,6 @@ class FormCollectionViewCell: UICollectionViewCell {
         label.alpha = 0
         return label
     }()
-    //MARK:- Constructor
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     func showInvalid(text: String) {
         UIView.animate(withDuration: 0.25) { [unowned self] in
@@ -77,17 +91,10 @@ class FormCollectionViewCell: UICollectionViewCell {
         }
         inputTextField.shakeAnimation()
     }
-    
 }
-//MARK:- UITextFieldDelegate
-extension FormCollectionViewCell: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
+
 //MARK:- UIPickerViewDelegate
-extension FormCollectionViewCell: UIPickerViewDelegate {
+extension FieldStackView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         values[row]
     }
@@ -96,32 +103,5 @@ extension FormCollectionViewCell: UIPickerViewDelegate {
         let text = values[row]
         inputTextField.text = text
         inputTextField.endEditing(true)
-    }
-}
-
-//MARK:- View Code
-extension FormCollectionViewCell: ViewCodable {
-    func setupHierarchyViews() {
-        let margins:[LayoutAnchor] = [.leading(layoutMargins.left), .trailing(-layoutMargins.right)]
-        addSubview(inputTextField, anchors: margins)
-        addSubview(hintLabel, anchors: margins + [.bottom(0)])
-        addSubview(isMandatoryLabel, anchors: margins)
-    }
-    
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            isMandatoryLabel.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 16),
-            inputTextField.topAnchor.constraint(equalTo: isMandatoryLabel.bottomAnchor, constant: 8),
-            hintLabel.topAnchor.constraint(equalTo: inputTextField.bottomAnchor, constant: 8),
-        ])
-    }
-    
-    func setupAdditionalConfiguration() {
-        layoutMargins = UIEdgeInsets(
-            top: 0,
-            left: 20,
-            bottom: 0,
-            right: 20
-        )
     }
 }

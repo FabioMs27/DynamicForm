@@ -22,3 +22,9 @@ class NumberTextFieldDelegate: ReturnTextFieldDelegate {
         return allowedCharacters.isSuperset(of: characterSet)
     }
 }
+
+class OptionTextFieldDelegate: ReturnTextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+}
